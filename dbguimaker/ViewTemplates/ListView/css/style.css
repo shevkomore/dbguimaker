@@ -1,0 +1,24 @@
+body {
+    padding: 3%;
+    background-color: lightgray;
+}
+.sty-centered-window {
+    margin: 7%;
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 0.4rem;
+}
+.sty-dropdown {
+    width: 100%;
+}
+.sty-dropdown-button {
+    height: 1rem;
+    width: 90%;
+    list-style: none;
+    cursor: pointer;
+    border: 3px solid rgb(0, 0, 0);
+    align-self: flex-end;
+}
+.sty-dropdown-svg {
+    height: 1rem;
+    align-self: flex-end;
+}

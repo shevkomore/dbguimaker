@@ -1,11 +1,42 @@
 <html>
-    <head>
-        <script lang="text/javascript" src="../js/database.js"></script>
-        <script lang="text/javascript" src="../js/list_gen.js"></script>
-        <script lang="text/javascript" src="../js/list_show.js"></script>
-        <style lang="text/css" src="../css/style.css"></style>
-    </head>
-    <body>
-        test text test text
-    </body>
+<head>
+    <script lang="text/javascript" src="../js/list_setup.js"></script>
+    <script lang="text/javascript" src="../js/list_data.js"></script>
+    <link rel="stylesheet" href="../css/structure.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <style>
+        * {
+            border: 1px dashed white;
+        }
+    </style>
+</head>
+<body>
+    <div id="list-element-template" hidden>
+        <div>
+
+        </div>
+    </div>
+    <div id="table-select-template" hidden>
+        <button><span id="table_name"></span></button>
+    </div>
+    <header class="str-grid-2v1h">
+        <div class="str-el-grid-top-left str-line">Database: <u id="database_name"></u></div>
+        <div class="str-el-grid-top-right str-line">
+            Table: <details class="str-dropdown sty-dropdown str-line" id="dropdown_container">
+                <summary class="sty-dropdown-button str-line">
+                    <span id="dropdown_show_selected"></span>
+                    <svg class="sty-dropdown-svg ani-dropdown-svg" viewBox="0 0 10 10">
+                        <polygon points="0,0 5,10 10,0" fill="gray" stroke-linejoin="round"></polygon>
+                    </svg>
+                </summary>
+                <div class="str-dropdown-list str-scrollable-list" id="dropdown_show_all" onclick="document.getElementById('dropdown_container').open = false;">
+                </div>
+            </details>
+        </div>
+    </header>
+    <div class="str-el-grid-bottom-all str-scrollable-list sty-centered-window" id="list_container">
+    </div>
+    <script lang="text/javascript" src="../js/list_show.js"></script>
+</body>
 </html>

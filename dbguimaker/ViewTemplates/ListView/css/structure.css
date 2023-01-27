@@ -1,0 +1,37 @@
+﻿/*Grid*/
+.str-el-grid-top-left {
+    grid-area: topleft;
+}
+
+.str-el-grid-top-right {
+    grid-area: topright;
+}
+
+.str-el-grid-bottom-all{
+    grid-area: bottomleft / bottomright;
+}
+
+.str-grid-2v1h{
+    display: grid;
+    grid-template-areas:
+        'topleft topright'
+        'bottomleft bottomright';
+}
+/*Basic elements*/
+.str-line {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.str-scrollable-list{
+    height: 70%;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.str-dropdown{
+}
+.str-dropdown-list{
+    position: absolute;
+}
+
+
