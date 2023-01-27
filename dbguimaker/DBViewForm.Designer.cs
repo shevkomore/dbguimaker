@@ -49,6 +49,7 @@
             this.Controls.Add(this.mainPanel);
             this.Name = "DBViewForm";
             this.Text = "DBGUI";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DBViewForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

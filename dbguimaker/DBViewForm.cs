@@ -15,18 +15,20 @@ namespace dbguimaker
 {
     public partial class DBViewForm : Form
     {
-        private static string LIST_VIEW_PATH = "/ViewTemplates/ListView/html/index.html";
         public ChromiumWebBrowser ChromiumView { get; set; }
-        public DBViewForm()
+        public DBViewForm(string path)
         {
             InitializeComponent();
             //Initializing ChromiumView
-            string path = Environment.CurrentDirectory + LIST_VIEW_PATH;
             ChromiumView = new ChromiumWebBrowser(path);
             ChromiumView.MenuHandler = ChromiumHideMenu.Instance;
             mainPanel.Controls.Add(ChromiumView);
             ChromiumView.Dock = DockStyle.Fill;
         }
 
+        private void DBViewForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.mainMenu.Show();
+        }
     }
 }
