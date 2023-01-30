@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq.Expressions;
 
 namespace dbguimaker
 {
@@ -15,6 +16,9 @@ namespace dbguimaker
     {
         public static SQLiteConnection db;
         public string name;
+        SQLiteCommand selectNames;
+        SQLiteCommand selectTableNames;
+
         public EditorForm(string path, string name)
         {
             this.name = name;
@@ -22,14 +26,49 @@ namespace dbguimaker
             db.Open();
 
             InitializeComponent();
-            label1.Text = "SQLite version " + new SQLiteCommand("SELECT SQLITE_VERSION()", db).ExecuteScalar();
+            label1.Text = "SQLite version " + GetS("SELECT SQLITE_VERSION()");
+            InitializeDBCommands();
+
+            IterateReader(selectTableNames.ExecuteReader,
+                e => tablesListBox.Items.Add(e.GetString(e.GetOrdinal("name")))
+                );
+
+            tablesListBox.SelectedIndex = 0;
         }
-        public SQLiteDataReader Get(string command) => new SQLiteCommand(command, db).ExecuteReader();
+
+        private void InitializeDBCommands()
+        {
+            selectTableNames = new SQLiteCommand("SELECT name FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%'", db);
+            selectTableNames.CommandType = CommandType.Text;
+            selectNames = new SQLiteCommand("SELECT name FROM PRAGMA_TABLE_INFO('@tablename')", db);
+            selectNames.CommandType = CommandType.Text;
+        }
+        public object GetS(string command) => new SQLiteCommand(command, db).ExecuteScalar();
+        public static void IterateReader(Func<SQLiteDataReader> create_reader, Action<SQLiteDataReader> iteration)
+        {
+            using (SQLiteDataReader r = create_reader())
+                while (r.Read())
+                    iteration(r);
+        }
+        public SQLiteDataReader GetTable(object table_name)
+        {
+            label1.Text = GetS("SELECT name FROM PRAGMA_TABLE_INFO('"+table_name+"')").ToString();
+            selectNames.CommandText = "SELECT name FROM PRAGMA_TABLE_INFO('" + table_name + "')";
+            return selectNames.ExecuteReader();
+        }
 
         private void EditorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.currentEditor = null;
             Program.mainMenu.Show();
+        }
+
+        private void tablesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            columnsListBox.Items.Clear();
+            IterateReader(() => GetTable(tablesListBox.SelectedItem), 
+                r => columnsListBox.Items.Add(r.GetString(r.GetOrdinal("name")))
+                );
         }
     }
     

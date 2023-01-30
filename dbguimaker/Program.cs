@@ -8,7 +8,7 @@ namespace dbguimaker
 {
     internal static class Program
     {
-        public static InitMenu mainMenu;
+        public static InitMenuForm mainMenu;
         public static EditorForm currentEditor;
         public static List<DBViewForm> viewForms = new List<DBViewForm>();
         /// <summary>
@@ -19,7 +19,7 @@ namespace dbguimaker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            mainMenu = new InitMenu();
+            mainMenu = new InitMenuForm();
             Application.Run(mainMenu);
         }
     }
