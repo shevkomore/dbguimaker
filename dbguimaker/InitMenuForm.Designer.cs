@@ -1,6 +1,6 @@
 ﻿namespace dbguimaker
 {
-    partial class InitMenu
+    partial class InitMenuForm
     {
         /// <summary>
         /// Required designer variable.

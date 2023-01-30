@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace dbguimaker
 {
-    public partial class InitMenu : Form
+    public partial class InitMenuForm : Form
     {
-        public InitMenu()
+        public InitMenuForm()
         {
             InitializeComponent();
         }
