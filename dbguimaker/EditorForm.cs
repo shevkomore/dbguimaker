@@ -14,6 +14,8 @@ namespace dbguimaker
 {
     public partial class EditorForm : Form
     {
+        public List<Button> buttons = new List<Button>();
+        public List<object> createdElements = new List<object> ();
         public static SQLiteConnection db;
         public string name;
         SQLiteCommand selectNames;
@@ -69,6 +71,20 @@ namespace dbguimaker
             IterateReader(() => GetTable(tablesListBox.SelectedItem), 
                 r => columnsListBox.Items.Add(r.GetString(r.GetOrdinal("name")))
                 );
+        }
+
+        private void columnsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (createdElements.Contains(columnsListBox.SelectedItem)) return;
+            createdElements.Add(columnsListBox.SelectedItem);
+            Button b = new Button();
+            b.Text = columnsListBox.SelectedItem.ToString();
+            Point b_pos = MousePosition;
+            b_pos.Offset(-150, 0);
+            b.Location = b_pos;
+            b.Size = new Size(100, 50);
+            ControlExtension.Draggable(b, true);
+            panel1.Controls.Add(b);
         }
     }
     
