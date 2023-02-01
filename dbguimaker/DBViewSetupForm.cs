@@ -16,25 +16,12 @@ namespace dbguimaker
     {
         DatabaseGUIData currentData;
         string defaultDatabasePath;
-        static OpenFileDialog dataFileDialog = new OpenFileDialog();
-        static OpenFileDialog databaseFileDialog = new OpenFileDialog();
-        static DBViewSetupForm()
-        {
-            dataFileDialog.Filter =
-               "Database View File|*.dbgui";
-            dataFileDialog.CheckFileExists = true;
-            dataFileDialog.Title = "Select a file";
-            databaseFileDialog.Filter =
-               "Database File|*.db";
-            databaseFileDialog.CheckFileExists = true;
-            databaseFileDialog.Title = "Select a database";
-        }
         public DBViewSetupForm()
         {
             InitializeComponent();
-            if (dataFileDialog.ShowDialog() == DialogResult.OK)
+            if (DatabaseGUIData.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
             {
-                OpenData(dataFileDialog.FileName);
+                OpenData(DatabaseGUIData.OpenDataFileDialog.FileName);
                 useFixedPathCheckBox.Checked = true;
                 TryUseDefaultDatabasePath();//might be duplicate call
             }
@@ -84,17 +71,17 @@ namespace dbguimaker
         }
         private void dataPathDialogButton_Click(object sender, EventArgs e)
         {
-            if(dataFileDialog.ShowDialog() == DialogResult.OK)
+            if(DatabaseGUIData.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
             {
-                OpenData(dataFileDialog.FileName);
+                OpenData(DatabaseGUIData.OpenDataFileDialog.FileName);
             }
         }
 
         private void databasePathDialogButton_Click(object sender, EventArgs e)
         {
-            if(databaseFileDialog.ShowDialog() == DialogResult.OK)
+            if(DatabaseGUIData.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
             {
-                databasePathTextBox.Text = databaseFileDialog.FileName;
+                databasePathTextBox.Text = DatabaseGUIData.OpenDataFileDialog.FileName;
             }
         }
 
@@ -117,7 +104,7 @@ namespace dbguimaker
                 errorProvider.SetError(dataPathTextBox, "Invalid file path.");
                 return;
             }
-            if (currentData.databasePath == null)//attempt at checking whether the data is valid
+            if (currentData.databasePath == null)
             {
                 OpenData(dataPathTextBox.Text);
                 if (currentData.databasePath == null)

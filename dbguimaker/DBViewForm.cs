@@ -22,11 +22,7 @@ namespace dbguimaker
         public DBViewForm(DatabaseConnection database, DatabaseGUIData data)
         {
             InitializeComponent();
-            //Initializing ChromiumView
-            //ChromiumView = new ChromiumWebBrowser(path);
-            //ChromiumView.MenuHandler = ChromiumHideMenu.Instance;
-            //mainPanel.Controls.Add(ChromiumView);
-            //ChromiumView.Dock = DockStyle.Fill;
+            //TODO make it load one at a time, so that you don't have to wait for it all to load
             this.flowLayoutPanel1.Controls.Add( data.views[0].Generate(database));
         }
 

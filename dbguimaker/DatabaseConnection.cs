@@ -109,7 +109,11 @@ namespace dbguimaker
             {
                 if (obj == null || !(obj is TableColumn)) return false;
                 TableColumn other = obj as TableColumn;
-                return other.Type == this.Type & other.Name == this.Name;
+                return other.Type == this.Type & other.Name == this.Name & other.NotNull == this.NotNull;
+            }
+            public override string ToString()
+            {
+                return name;
             }
         }
     }

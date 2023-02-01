@@ -71,14 +71,15 @@ namespace dbguimaker
             Button b = new Button();
             b.Text = ((DatabaseConnection.TableColumn)columnsListBox.SelectedItem).Name;
             Point b_pos = MousePosition;
-            b_pos.Offset(-150, 0);
+            b_pos.Offset(150, 0);
             b.Location = b_pos;
             b.Size = new Size(100, 50);
             ControlExtension.Draggable(b, true);
             panel1.Controls.Add(b);
             //TEMP
-            a.views[0].elements.Add(new DatabaseGUIViewElement("TEXT",
-                new DatabaseGUIInput((DatabaseConnection.TableColumn)columnsListBox.SelectedItem)));
+            a.views[0].elements.Add(new DatabaseGUITextArea(
+                columnsListBox.SelectedItem.ToString(), 
+                new DatabaseGUITextInput((DatabaseConnection.TableColumn)columnsListBox.SelectedItem)));
         }
     }
 

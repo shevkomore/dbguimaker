@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace dbguimaker
 {
@@ -11,6 +14,35 @@ namespace dbguimaker
     /// </summary>
     public partial class DatabaseGUIData
     {
+        internal static Font defaultFont = new Font(FontFamily.GenericSansSerif, 14);
+        internal static OpenFileDialog OpenDataFileDialog = new OpenFileDialog();
+        internal static OpenFileDialog OpenDatabaseFileDialog = new OpenFileDialog();
+        internal static SaveFileDialog SaveViewFileDialog = new SaveFileDialog();
+        static DatabaseGUIData()
+        {
+            //
+            //  OpenDataFileDialog
+            //
+            OpenDataFileDialog.Filter =
+                "Database View File|*.dbgui";
+            OpenDataFileDialog.CheckFileExists = true;
+            OpenDataFileDialog.Title = "Select a file";
+            //
+            //  OpenDatabaseFileDialog
+            //
+            OpenDatabaseFileDialog.Filter =
+               "Database File|*.db";
+            OpenDatabaseFileDialog.CheckFileExists = true;
+            OpenDatabaseFileDialog.Title = "Select a database";
+            //
+            //  SaveViewFileDialog
+            //
+            SaveViewFileDialog.Title = "Save view to...";
+            SaveViewFileDialog.DefaultExt = ".dbgui";
+            SaveViewFileDialog.FileName = "view";
+            SaveViewFileDialog.AddExtension = true;
+            SaveViewFileDialog.CheckPathExists = true;
+        }
         public DatabaseGUIData() { }
         public DatabaseGUIData(string database_name)
         {
@@ -20,11 +52,11 @@ namespace dbguimaker
 
         public static string CreateRelativePath(string start, string target)
         {
+            //I think there's a cleaner way to do this, so for now I've explained what I'm doing.
             start = Path.GetDirectoryName(Path.GetFullPath(start))+Path.DirectorySeparatorChar;
             target = Path.GetFullPath(target);
-            string path = "";
             /*
-             * Removing all unnecessary (matching) path elements from both strings
+             * Remove all unnecessary (matching) path elements from both strings
              * 
              * for example,
              * "C:/Users/l/Desktop/f"
@@ -44,10 +76,13 @@ namespace dbguimaker
             /*
              * Return back once per directory left in start
              * 
+             * for example,
              * "Documents/folder"
+             * 
              * should return
              * "../.."
              */
+            string path = "";
             compared = start.IndexOf(Path.DirectorySeparatorChar)+1;
             while (compared != 0)
             {
@@ -80,45 +115,91 @@ namespace dbguimaker
             this.elements = new List<DatabaseGUIViewElement>();
         }
         public bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data)
-        {
-            foreach (DatabaseGUIViewElement e in this.elements)
-                if (!e.IsCompatibleWith(table_data)) return false;
-
-            return true;
-        }
+            => elements.TrueForAll(e => e.IsCompatibleWith(table_data));
         public Control Generate(DatabaseConnection database)
         {
             FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
-            DatabaseConnection.IterateReader(() => database.GetTable(tableName),
-                r =>
-                {
-                    foreach (DatabaseGUIViewElement e in this.elements)
-                        flowLayoutPanel.Controls.Add( e.Generate(r));
-                });
-
+            flowLayoutPanel.AutoSize = true;
+            flowLayoutPanel.AutoScroll = true;
+            flowLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            DatabaseConnection.IterateReader(
+                () => database.GetTable(tableName),
+                r => elements.ForEach(
+                    e => flowLayoutPanel.Controls.Add(e.Generate(r))
+                    )
+                );
             return flowLayoutPanel;
         }
     }
     /// <summary>
     /// A GUI element that contains some information for current table row
     /// </summary>
-    public partial class DatabaseGUIViewElement
+    public abstract partial class DatabaseGUIViewElement
     {
-        public DatabaseGUIViewElement() { }
-        public DatabaseGUIViewElement(string text, DatabaseGUIInput data)
+        public abstract bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data);
+        public abstract Control Generate(SQLiteDataReader reader);
+    }
+    public partial class DatabaseGUILabel
+    {
+        public DatabaseGUILabel() { }
+        public DatabaseGUILabel(string formatableText, DatabaseGUITextInput data)
+        {
+            this.formatableText = formatableText;
+            this.data = data;
+        }
+
+        public override bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data) => data.IsCompatibleWith(table_data);
+        public override Control Generate(SQLiteDataReader reader)
+        {
+            Label label = new Label();
+            label.Text = String.Format(this.formatableText, data.Get(reader));
+            return label;
+        }
+    }
+    public partial class DatabaseGUITextArea
+    {
+        public DatabaseGUITextArea() { }
+        public DatabaseGUITextArea(string text, DatabaseGUITextInput data)
         {
             this.text = text;
             this.data = data;
         }
-        public bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data) => data.IsCompatibleWith(table_data);
-        public Control Generate(SQLiteDataReader reader)
+
+        public override bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data) => data.IsCompatibleWith(table_data);
+        public override Control Generate(SQLiteDataReader reader)
         {
+            TableLayoutPanel layout = new TableLayoutPanel();
+            layout.AutoSize = true;
+            layout.ColumnCount = 2;
+            layout.ColumnStyles.Add(new ColumnStyle());
             Label label = new Label();
-            label.Text = this.text + data.Get(reader);
-            return label;
+            label.AutoSize = true;
+            label.Font = DatabaseGUIData.defaultFont;
+            label.Text = this.text;
+            layout.Controls.Add(label);
+            TextBox textBox = new TextBox();
+            textBox.Text = data.Get(reader);
+            textBox.AutoSize = true;
+            textBox.Font = DatabaseGUIData.defaultFont;
+            textBox.ReadOnly = true;
+            layout.Controls.Add(textBox);
+            return layout;
         }
     }
-    //TODO SUMMARY DESCRIBES INTERMEDIARY STATE OF CLASS! CHANGE LATER!
+    public partial class DatabaseGUICheckBox
+    {
+        public DatabaseGUICheckBox() { }
+        public override bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data) => data.IsCompatibleWith(table_data);
+        public override Control Generate(SQLiteDataReader reader)
+        {
+            CheckBox checkbox = new CheckBox();
+            checkbox.Text = this.text;
+            checkbox.Font = DatabaseGUIData.defaultFont;
+            checkbox.Checked = data.Get(reader);
+            checkbox.Enabled = false;
+            return checkbox;
+        }
+    }
     /// <summary>
     /// An object that references a specific database element to be shown by <see cref="DatabaseGUIViewElement"/>
     /// </summary>
@@ -130,9 +211,20 @@ namespace dbguimaker
             this.column = column;
         }
         public bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data)
-        {
-            return table_data.Contains(column);
-        }
-        public object Get(SQLiteDataReader reader) => reader.GetValue(reader.GetOrdinal(column.Name));
+            => table_data.Contains(column);
+    }
+    public partial class DatabaseGUITextInput
+    {
+        public DatabaseGUITextInput() { }
+        public DatabaseGUITextInput(DatabaseConnection.TableColumn data) : base(data) { }
+        public string Get(SQLiteDataReader reader)
+            => reader.GetValue(reader.GetOrdinal(column.Name)).ToString();
+    }
+    public partial class DatabaseGUIBoolInput
+    {
+        public DatabaseGUIBoolInput() { }
+        public DatabaseGUIBoolInput(DatabaseConnection.TableColumn data) : base(data) { }
+        public bool Get(SQLiteDataReader reader)
+            => reader.GetBoolean(reader.GetOrdinal(column.Name));
     }
 }

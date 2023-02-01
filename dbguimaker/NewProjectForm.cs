@@ -62,15 +62,10 @@ namespace dbguimaker
 
         private void viewFileDialogButton_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Title = "Save view to...";
-            dialog.DefaultExt = ".dbgui";
-            dialog.FileName = "view";
-            dialog.AddExtension = true;
-            dialog.CheckPathExists = true;
-            if(dialog.ShowDialog() == DialogResult.OK)
+            
+            if(DatabaseGUIData.SaveViewFileDialog.ShowDialog() == DialogResult.OK)
             {
-                NameTextBox.Text = dialog.FileName;
+                NameTextBox.Text = DatabaseGUIData.SaveViewFileDialog.FileName;
             }
         }
     }
