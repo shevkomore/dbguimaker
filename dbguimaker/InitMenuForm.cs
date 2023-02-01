@@ -19,17 +19,7 @@ namespace dbguimaker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter =
-               "index.html|index.html";
-            dialog.InitialDirectory = Environment.CurrentDirectory + "/ViewTemplates/ListView/html";
-            dialog.Title = "Select a file";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                this.Hide();
-                Program.viewForms.Add(new DBViewForm(dialog.FileName));
-                Program.viewForms[0].Show();
-            }
+            new DBViewSetupForm().Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
