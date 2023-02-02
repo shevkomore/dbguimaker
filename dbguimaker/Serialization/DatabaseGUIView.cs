@@ -3,7 +3,7 @@ using System.Data.SQLite;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace dbguimaker
+namespace dbguimaker.Serialization
 {
     /// <summary>
     /// Describes a view of one table

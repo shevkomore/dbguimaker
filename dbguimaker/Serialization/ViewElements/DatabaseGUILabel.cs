@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-namespace dbguimaker
+namespace dbguimaker.Serialization
 {
     public partial class DatabaseGUILabel
     {

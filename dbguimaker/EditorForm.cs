@@ -1,16 +1,10 @@
-﻿using System.Data.SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Linq.Expressions;
 using ProtoBuf;
 using System.IO;
+using dbguimaker.Serialization;
 
 namespace dbguimaker
 {
@@ -77,6 +71,18 @@ namespace dbguimaker
             ControlExtension.Draggable(b, true);
             panel1.Controls.Add(b);
             //TEMP
+            if((columnsListBox.SelectedItem as DatabaseConnection.TableColumn).Type == "INTEGER")
+            {
+                a.views[0].elements.Add(
+                    new DatabaseGUICheckBox("Is next one one?",
+                        new DatabaseGUIIntComparison(
+                            new DatabaseGUIIntInput((DatabaseConnection.TableColumn)columnsListBox.SelectedItem),
+                            new DatabaseGUIIntConstant(1),
+                            DatabaseGUIIntComparison.OperationType.Equals
+                            )
+                        )
+                    );
+            }
             a.views[0].elements.Add(new DatabaseGUITextArea(
                 columnsListBox.SelectedItem.ToString(), 
                 new DatabaseGUITextInput((DatabaseConnection.TableColumn)columnsListBox.SelectedItem)));

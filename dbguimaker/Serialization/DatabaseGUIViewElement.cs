@@ -2,7 +2,7 @@
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-namespace dbguimaker
+namespace dbguimaker.Serialization
 {
     /// <summary>
     /// A GUI element that contains some information for current table row

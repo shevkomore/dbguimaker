@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace dbguimaker
+namespace dbguimaker.Serialization
 {
     /// <summary>
     /// Describes an object that contains all data for creating a database view

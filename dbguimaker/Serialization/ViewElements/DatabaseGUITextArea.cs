@@ -2,7 +2,7 @@
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-namespace dbguimaker
+namespace dbguimaker.Serialization
 {
     public partial class DatabaseGUITextArea
     {
@@ -31,7 +31,7 @@ namespace dbguimaker
             textBox.AutoSize = true;
             textBox.Font = DatabaseGUIData.defaultFont;
             int width = TextRenderer.MeasureText(textBox.Text, textBox.Font).Width;
-            textBox.Width = width + label.Width < MaxWidth?width:MaxWidth;
+            textBox.Width = width + label.Width < MaxWidth ? width : MaxWidth;
             textBox.ReadOnly = true;
             layout.Controls.Add(textBox);
             return layout;
