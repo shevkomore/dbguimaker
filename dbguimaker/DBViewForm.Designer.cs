@@ -33,21 +33,22 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(38, 24);
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(38, 50);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(588, 406);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(588, 380);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // DBViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(862, 483);
+            this.ClientSize = new System.Drawing.Size(875, 486);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "DBViewForm";
             this.Text = "DBGUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DBViewForm_FormClosed);
+            this.Load += new System.EventHandler(this.DBViewForm_Load);
             this.ResumeLayout(false);
 
         }

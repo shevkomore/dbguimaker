@@ -135,8 +135,12 @@
     <Compile Include="DBViewSetupForm.Designer.cs">
       <DependentUpon>DBViewSetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Serialization\DatabaseGUI.cs" />
-    <Compile Include="Serialization\DatabaseGUIMethods.cs" />
+    <Compile Include="Serialization\serialization data structure.cs" />
+    <Compile Include="Serialization\ViewElements\DatabaseGUICheckBox.cs" />
+    <Compile Include="Serialization\DatabaseGUIData.cs" />
+    <Compile Include="Serialization\DatabaseGUIInput.cs" />
+    <Compile Include="Serialization\ViewElements\DatabaseGUILabel.cs" />
+    <Compile Include="Serialization\Inputs\DatabaseGUIBoolInput.cs" />
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +167,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\ViewElements\DatabaseGUITextArea.cs" />
+    <Compile Include="Serialization\Inputs\DatabaseGUITextInput.cs" />
+    <Compile Include="Serialization\DatabaseGUIView.cs" />
+    <Compile Include="Serialization\DatabaseGUIViewElement.cs" />
     <EmbeddedResource Include="DBViewForm.resx">
       <DependentUpon>DBViewForm.cs</DependentUpon>
     </EmbeddedResource>

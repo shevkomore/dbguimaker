@@ -18,17 +18,24 @@ namespace dbguimaker
 {
     public partial class DBViewForm : Form
     {
+        protected DatabaseGUIData data;
         public ChromiumWebBrowser ChromiumView { get; set; }
         public DBViewForm(DatabaseConnection database, DatabaseGUIData data)
         {
             InitializeComponent();
-            //TODO make it load one at a time, so that you don't have to wait for it all to load
-            this.flowLayoutPanel1.Controls.Add( data.views[0].Generate(database));
+            this.data = data;
+            data.views[0].Setup(database, flowLayoutPanel1);
         }
 
         private void DBViewForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.mainMenu.Show();
+        }
+
+        private void DBViewForm_Load(object sender, EventArgs e)
+        {
+
+            data.views[0].Generate(20);
         }
     }
 }
