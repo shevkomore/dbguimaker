@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace dbguimaker.Serialization
 {
+    /*
+     * General classes
+     */
     [ProtoContract]
     public partial class DatabaseGUIData
     {
@@ -29,6 +32,15 @@ namespace dbguimaker.Serialization
     [ProtoInclude(3, typeof(DatabaseGUICheckBox))]
     public partial class DatabaseGUIViewElement
     { }
+    [ProtoContract]
+    [ProtoInclude(1, typeof(DatabaseGUITextOperation))]
+    [ProtoInclude(2, typeof(DatabaseGUIBoolOperation))]
+    [ProtoInclude(3, typeof(DatabaseGUIIntOperation))]
+    public partial class DatabaseGUIOperation
+    { }
+    /*
+     * ViewElements
+     */
     [ProtoContract]
     public partial class DatabaseGUITextArea : DatabaseGUIViewElement
     {
@@ -53,12 +65,9 @@ namespace dbguimaker.Serialization
         [ProtoMember(2)]
         public DatabaseGUIBoolOperation data;
     }
-    [ProtoContract]
-    [ProtoInclude(1, typeof(DatabaseGUITextOperation))]
-    [ProtoInclude(2, typeof(DatabaseGUIBoolOperation))]
-    [ProtoInclude(3, typeof(DatabaseGUIIntOperation))]
-    public partial class DatabaseGUIOperation
-    { }
+    /*
+     * Operation types
+     */
     [ProtoContract]
     [ProtoInclude(1, typeof(DatabaseGUITextInput))]
     [ProtoInclude(2, typeof(DatabaseGUITextConstant))]
@@ -75,6 +84,12 @@ namespace dbguimaker.Serialization
     [ProtoInclude(2, typeof(DatabaseGUIIntConstant))]
     public partial class DatabaseGUIIntOperation : DatabaseGUIOperation
     { }
+    /*
+     * Operations:
+     */
+    /*
+     * Transforming Operations
+     */
     [ProtoContract]
     public partial class DatabaseGUIIntComparison : DatabaseGUIBoolOperation
     {
@@ -85,6 +100,9 @@ namespace dbguimaker.Serialization
         [ProtoMember(3)]
         public DatabaseGUIIntOperation secondOperand;
     }
+    /*
+     * Inputs (receive data from database)
+     */
     [ProtoContract]
     public partial class DatabaseGUITextInput : DatabaseGUITextOperation
     {
@@ -103,6 +121,9 @@ namespace dbguimaker.Serialization
         [ProtoMember(1)]
         public DatabaseConnection.TableColumn column;
     }
+    /*
+     * Constants
+     */
     [ProtoContract]
     public partial class DatabaseGUITextConstant : DatabaseGUITextOperation
     {
