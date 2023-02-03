@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace dbguimaker.Serialization
@@ -8,18 +6,23 @@ namespace dbguimaker.Serialization
     public partial class DatabaseGUILabel
     {
         public DatabaseGUILabel() { }
-        public DatabaseGUILabel(string formatableText, DatabaseGUITextInput data)
-        {
-            this.formatableText = formatableText;
-            this.data = data;
+        public DatabaseGUILabel(DatabaseGUIOperation text) {
+            this.text = text;
         }
 
-        public override bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data) => data.IsCompatibleWith(table_data);
-        public override Control Generate(SQLiteDataReader reader)
+        public override bool IsCompatibleWith(List<TableColumn> table_data) => text.IsCompatibleWith(table_data);
+        public override Control Generate(Dictionary<TableColumn, object> row)
         {
             Label label = new Label();
-            label.Text = String.Format(this.formatableText, data.Get(reader));
+            label.Text = text.GetString(row);
             return label;
+        }
+
+        public override IEnumerable<TableColumn> GetRequiredColumns()
+        {
+            HashSet<TableColumn> columns = new HashSet<TableColumn>();
+            columns.UnionWith(text.GetRequiredColumns());
+            return columns;
         }
     }
 }

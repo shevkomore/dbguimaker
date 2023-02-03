@@ -9,7 +9,8 @@ namespace dbguimaker.Serialization
     /// </summary>
     public abstract partial class DatabaseGUIViewElement
     {
-        public abstract bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data);
-        public abstract Control Generate(SQLiteDataReader reader);
+        public abstract bool IsCompatibleWith(List<TableColumn> table_data);
+        public abstract Control Generate(Dictionary<TableColumn, object> reader);
+        public abstract IEnumerable<TableColumn> GetRequiredColumns();
     }
 }

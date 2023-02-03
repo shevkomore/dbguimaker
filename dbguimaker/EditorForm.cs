@@ -51,7 +51,7 @@ namespace dbguimaker
         private void tablesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             columnsListBox.Items.Clear();
-            foreach(DatabaseConnection.TableColumn c in db.GetTableInfo(tablesListBox.SelectedItem.ToString()))
+            foreach(TableColumn c in db.GetTableInfo(tablesListBox.SelectedItem.ToString()))
                 columnsListBox.Items.Add(c);
             //TEMP
             if(tablesListBox.SelectedIndex != -1)
@@ -63,7 +63,7 @@ namespace dbguimaker
             if (createdElements.Contains(columnsListBox.SelectedItem)) return;
             createdElements.Add(columnsListBox.SelectedItem);
             Button b = new Button();
-            b.Text = ((DatabaseConnection.TableColumn)columnsListBox.SelectedItem).Name;
+            b.Text = ((TableColumn)columnsListBox.SelectedItem).Name;
             Point b_pos = MousePosition;
             b_pos.Offset(150, 0);
             b.Location = b_pos;
@@ -71,21 +71,21 @@ namespace dbguimaker
             ControlExtension.Draggable(b, true);
             panel1.Controls.Add(b);
             //TEMP
-            if((columnsListBox.SelectedItem as DatabaseConnection.TableColumn).Type == "INTEGER")
+            if((columnsListBox.SelectedItem as TableColumn).RawType == "INTEGER")
             {
                 a.views[0].elements.Add(
-                    new DatabaseGUICheckBox("Is next one one?",
-                        new DatabaseGUIIntComparison(
-                            new DatabaseGUIIntInput((DatabaseConnection.TableColumn)columnsListBox.SelectedItem),
-                            new DatabaseGUIIntConstant(1),
-                            DatabaseGUIIntComparison.OperationType.Equals
+                    new DatabaseGUICheckBox(new DatabaseGUIConstant("Is next one one?"),
+                        new DatabaseGUIComparison(
+                            new DatabaseGUIInput((TableColumn)columnsListBox.SelectedItem),
+                            new DatabaseGUIConstant(1),
+                            DatabaseGUIComparison.OperationType.Equals
                             )
                         )
                     );
             }
             a.views[0].elements.Add(new DatabaseGUITextArea(
-                columnsListBox.SelectedItem.ToString(), 
-                new DatabaseGUITextInput((DatabaseConnection.TableColumn)columnsListBox.SelectedItem)));
+                new DatabaseGUIConstant(columnsListBox.SelectedItem),
+                new DatabaseGUIInput((TableColumn)columnsListBox.SelectedItem)));
         }
     }
 

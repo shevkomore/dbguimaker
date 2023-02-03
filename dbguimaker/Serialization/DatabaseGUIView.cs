@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SQLite;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,25 +14,37 @@ namespace dbguimaker.Serialization
     {
         protected Control container;
         protected SQLiteDataReader dataReader;
-        protected bool canLoadNext = false;
-        public bool CanLoadNext{ get { return canLoadNext; } }
+        protected bool canLoadNext = false;//
+        public bool CanLoadNext{ get { return canLoadNext; } }//
+        protected Dictionary<TableColumn, object> currentRow
+            = new Dictionary<TableColumn, object>();
         public DatabaseGUIView() { }
         public DatabaseGUIView(string table_name)
         {
             this.tableName = table_name;
             this.elements = new List<DatabaseGUIViewElement>();
         }
-        public bool IsCompatibleWith(List<DatabaseConnection.TableColumn> table_data)
+        public bool IsCompatibleWith(List<TableColumn> table_data)
             => elements.TrueForAll(e => e.IsCompatibleWith(table_data));
         public void Setup(DatabaseConnection database, Control container)
         {
             this.dataReader = database.GetTable(tableName);
             this.container = container;
+
+            List<TableColumn> columns = new List<TableColumn>();
+            int temp = 1; // because null would've deleted the element
+            foreach (var el in elements) columns.AddRange(el.GetRequiredColumns());
+            foreach (var col in columns) currentRow[col] = temp;
             Next();
         }
         private async void Next()
         {
-            canLoadNext =  dataReader!=null & await dataReader.ReadAsync();
+            canLoadNext = dataReader!=null & await dataReader.ReadAsync();
+            List<TableColumn> columns = currentRow.Keys.ToList<TableColumn>();
+            ParallelEnumerable.ForAll(
+                columns.AsParallel(), 
+                column => currentRow[column] = dataReader.GetValue(dataReader.GetOrdinal(column.Name))
+                );
         }
         public void Generate()
         {
@@ -40,7 +54,7 @@ namespace dbguimaker.Serialization
             Parallel.Invoke(
                 () => flowLayoutPanel = LoadPanel(),
                 () => Parallel.For(0, elements.Count,
-                    i => controls[i] = elements[i].Generate(dataReader))
+                    i => controls[i] = elements[i].Generate(currentRow))
             );
             flowLayoutPanel.Controls.AddRange(controls);
             container.Controls.Add(flowLayoutPanel);
@@ -64,5 +78,9 @@ namespace dbguimaker.Serialization
             flowLayoutPanel.Dock = DockStyle.Top;
             return flowLayoutPanel;
         }
+
+        /*
+         * Methods for creating database requests
+         */
     }
 }

@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dbguimaker
 {
@@ -14,7 +10,7 @@ namespace dbguimaker
      * Container for a database with some shorthands fow working with it
      * </summary>
      */
-    public class DatabaseConnection
+    public partial class DatabaseConnection
     {
         SQLiteConnection database;
         public SQLiteConnection Database { get { return database; } }
@@ -79,42 +75,6 @@ namespace dbguimaker
             using (SQLiteDataReader r = create_reader())
                 while (r.Read())
                     iteration(r);
-        }
-        [ProtoBuf.ProtoContract]
-        public class TableColumn
-        {
-            [ProtoBuf.ProtoMember(1)]
-            string name;
-            public string Name { get { return name; } }
-            [ProtoBuf.ProtoMember(2)]
-            string type;
-            public string Type { get { return type; } }
-            [ProtoBuf.ProtoMember(3)]
-            bool notNull;
-            public bool NotNull { get { return notNull; } }
-            public TableColumn() { }
-            public TableColumn(string name, string type, bool not_null = false)
-            {
-                this.name = name;
-                this.type = type;
-                this.notNull = not_null;
-            }
-            public TableColumn(SQLiteDataReader r)
-            {
-                this.name = r.GetString(1);
-                this.type = r.GetString(2);
-                this.notNull = r.GetBoolean(3);
-            }
-            public override bool Equals(object obj)
-            {
-                if (obj == null || !(obj is TableColumn)) return false;
-                TableColumn other = obj as TableColumn;
-                return other.Type == this.Type & other.Name == this.Name & other.NotNull == this.NotNull;
-            }
-            public override string ToString()
-            {
-                return name;
-            }
         }
     }
 }

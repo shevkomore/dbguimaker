@@ -1,9 +1,5 @@
 ﻿using ProtoBuf;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dbguimaker.Serialization
 {
@@ -33,11 +29,12 @@ namespace dbguimaker.Serialization
     public partial class DatabaseGUIViewElement
     { }
     [ProtoContract]
-    [ProtoInclude(1, typeof(DatabaseGUITextOperation))]
-    [ProtoInclude(2, typeof(DatabaseGUIBoolOperation))]
-    [ProtoInclude(3, typeof(DatabaseGUIIntOperation))]
+    [ProtoInclude(1, typeof(DatabaseGUIConstant))]
+    [ProtoInclude(2, typeof(DatabaseGUIInput))]
+    [ProtoInclude(3, typeof(DatabaseGUIComparison))]
     public partial class DatabaseGUIOperation
-    { }
+    {
+    }
     /*
      * ViewElements
      */
@@ -45,45 +42,24 @@ namespace dbguimaker.Serialization
     public partial class DatabaseGUITextArea : DatabaseGUIViewElement
     {
         [ProtoMember(1)]
-        public string text;
+        public DatabaseGUIOperation label;
         [ProtoMember(2)]
-        public DatabaseGUITextOperation data;
+        public DatabaseGUIOperation data;
     }
     [ProtoContract]
     public partial class DatabaseGUILabel : DatabaseGUIViewElement
     {
         [ProtoMember(1)]
-        public string formatableText;
-        [ProtoMember(2)]
-        public DatabaseGUITextOperation data;
+        public DatabaseGUIOperation text;
     }
     [ProtoContract]
     public partial class DatabaseGUICheckBox : DatabaseGUIViewElement
     {
         [ProtoMember(1)]
-        public string text;
+        public DatabaseGUIOperation label;
         [ProtoMember(2)]
-        public DatabaseGUIBoolOperation data;
+        public DatabaseGUIOperation data;
     }
-    /*
-     * Operation types
-     */
-    [ProtoContract]
-    [ProtoInclude(1, typeof(DatabaseGUITextInput))]
-    [ProtoInclude(2, typeof(DatabaseGUITextConstant))]
-    public partial class DatabaseGUITextOperation : DatabaseGUIOperation
-    { }
-    [ProtoContract]
-    [ProtoInclude(1, typeof(DatabaseGUIBoolInput))]
-    [ProtoInclude(2, typeof(DatabaseGUIBoolConstant))]
-    [ProtoInclude(3, typeof(DatabaseGUIIntComparison))]
-    public partial class DatabaseGUIBoolOperation : DatabaseGUIOperation
-    { }
-    [ProtoContract]
-    [ProtoInclude(1, typeof(DatabaseGUIIntInput))]
-    [ProtoInclude(2, typeof(DatabaseGUIIntConstant))]
-    public partial class DatabaseGUIIntOperation : DatabaseGUIOperation
-    { }
     /*
      * Operations:
      */
@@ -91,55 +67,31 @@ namespace dbguimaker.Serialization
      * Transforming Operations
      */
     [ProtoContract]
-    public partial class DatabaseGUIIntComparison : DatabaseGUIBoolOperation
+    public partial class DatabaseGUIComparison : DatabaseGUIOperation
     {
         [ProtoMember(1)]
         public OperationType operationType;
         [ProtoMember(2)]
-        public DatabaseGUIIntOperation firstOperand;
+        public DatabaseGUIOperation firstOperand;
         [ProtoMember(3)]
-        public DatabaseGUIIntOperation secondOperand;
+        public DatabaseGUIOperation secondOperand;
     }
     /*
      * Inputs (receive data from database)
      */
     [ProtoContract]
-    public partial class DatabaseGUITextInput : DatabaseGUITextOperation
+    public partial class DatabaseGUIInput : DatabaseGUIOperation
     {
         [ProtoMember(1)]
-        public DatabaseConnection.TableColumn column;
-    }
-    [ProtoContract]
-    public partial class DatabaseGUIBoolInput : DatabaseGUIBoolOperation
-    {
-        [ProtoMember(1)]
-        public DatabaseConnection.TableColumn column;
-    }
-    [ProtoContract]
-    public partial class DatabaseGUIIntInput : DatabaseGUIIntOperation
-    {
-        [ProtoMember(1)]
-        public DatabaseConnection.TableColumn column;
+        public TableColumn column;
     }
     /*
      * Constants
      */
     [ProtoContract]
-    public partial class DatabaseGUITextConstant : DatabaseGUITextOperation
+    public partial class DatabaseGUIConstant : DatabaseGUIOperation
     {
         [ProtoMember(1)]
         public string value;
-    }
-    [ProtoContract]
-    public partial class DatabaseGUIIntConstant : DatabaseGUIIntOperation
-    {
-        [ProtoMember(1)]
-        public int value;
-    }
-    [ProtoContract]
-    public partial class DatabaseGUIBoolConstant : DatabaseGUIBoolOperation
-    {
-        [ProtoMember(1)]
-        public bool value;
     }
 }
