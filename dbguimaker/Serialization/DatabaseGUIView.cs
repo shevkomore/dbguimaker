@@ -61,6 +61,7 @@ namespace dbguimaker.Serialization
             flowLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanel.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel.BorderStyle = BorderStyle.FixedSingle;
+            flowLayoutPanel.Dock = DockStyle.Top;
             return flowLayoutPanel;
         }
     }
