@@ -1,17 +1,17 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 
-namespace dbguimaker
+namespace dbguimaker.DatabaseGUI
 {
     public abstract class EditorElement
     {
         private static Font LabelFont = new Font(FontFamily.GenericSansSerif, 9);
         protected TableLayoutPanel editorView;
         /// <summary>
-        /// An array representing all the <see cref="DatabaseGUIOperation"/> inputs this component can have.
+        /// An array representing all the <see cref="Operation"/> inputs this component can have.
         /// This list is used to create input fields for <see cref="EditorView"/>
         /// </summary>
-        public abstract DatabaseGUI.Operation[] Inputs { get; }
+        public abstract Operation[] Inputs { get; }
         /// <summary>
         /// An array containing texts that will be shown by <see cref="EditorView"/> 
         /// as names of <see cref="Inputs"/> with the same array index.
@@ -26,7 +26,7 @@ namespace dbguimaker
         /// <remarks>
         /// The created <see cref="Control"/> consists of:
         /// <list type="number">
-        /// <item>A representation of the component, as defined by <see cref="GenerateEditorView"/></item>
+        /// <item>A representation of the component, as defined by <see cref="GenerateEditorRepresentation"/></item>
         /// <item>A list of <see cref="Control"/>s which represent the <see cref="Inputs"/>.</item>
         /// </list>
         /// Those inputs use names given by according <see cref="InputTexts"/> component.
@@ -39,15 +39,22 @@ namespace dbguimaker
                     editorView = new TableLayoutPanel();
                     editorView.AutoSize = true;
                     editorView.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                    editorView.ColumnCount = 2;
-                    editorView.RowCount = Inputs.Length;
-                    //editorView.RowStyles[0].SizeType = SizeType.AutoSize;
-
-                    Control representation = GenerateEditorView();
+                    if (Inputs.Length == 0)
+                    {
+                        editorView.ColumnCount = 1;
+                        EditorView.RowCount = 1;
+                    }
+                    else
+                    {
+                        editorView.ColumnCount = 2;
+                        editorView.RowCount = Inputs.Length;
+                        //editorView.RowStyles[0].SizeType = SizeType.AutoSize;
+                    }
+                    Control representation = GenerateEditorRepresentation();
                     editorView.Controls.Add(representation);
                     editorView.SetColumn(representation, 0);
                     editorView.SetRowSpan(representation, editorView.RowCount);
-                    for(int i = 0; i < Inputs.Length; i++)
+                    for (int i = 0; i < Inputs.Length; i++)
                     {
                         Label label = new Label();
                         label.Font = LabelFont;
@@ -64,11 +71,11 @@ namespace dbguimaker
         /// Creates a new representation of this element in editor.
         /// Called by <see cref="EditorView"/>
         /// </summary>
-        /// <returns>a new Cntrol that represents this element in editor.</returns>
-        protected abstract Control GenerateEditorView();
+        /// <returns>a new Control that represents this element in editor.</returns>
+        protected abstract Control GenerateEditorRepresentation();
         /// <summary>
         /// Deletes last <see cref="EditorView"/> created.
-        /// WARNING! This method doesn't delete connections between the components!
+        /// WARNING! This method doesn't delete connections between operations!
         /// </summary>
         public void DeleteEditorView()
         {

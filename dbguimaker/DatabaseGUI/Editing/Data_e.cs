@@ -1,10 +1,10 @@
 ﻿
+using System.Drawing;
+
 namespace dbguimaker.DatabaseGUI
 {
-    /// <summary>
-    /// Describes an object that contains all data for creating a database view
-    /// </summary>
     public partial class Data
     {
+        public static Font DefaultRepresentationFont = new Font(FontFamily.GenericSansSerif, 8);
     }
 }

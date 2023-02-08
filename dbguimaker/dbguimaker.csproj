@@ -129,16 +129,27 @@
   <ItemGroup>
     <Compile Include="ChromiumHideMenu.cs" />
     <Compile Include="DatabaseConnection.cs" />
-    <Compile Include="DatabaseGUI\View\Data.cs" />
-    <Compile Include="DatabaseGUI\View\Operation.cs" />
-    <Compile Include="DatabaseGUI\View\Operations\Comparison.cs" />
-    <Compile Include="DatabaseGUI\View\Operations\Constant.cs" />
-    <Compile Include="DatabaseGUI\View\Operations\Input.cs" />
-    <Compile Include="DatabaseGUI\View\View.cs" />
-    <Compile Include="DatabaseGUI\View\ViewComponent.cs" />
-    <Compile Include="DatabaseGUI\View\ViewComponents\CheckBox.cs" />
-    <Compile Include="DatabaseGUI\View\ViewComponents\Label.cs" />
-    <Compile Include="DatabaseGUI\View\ViewComponents\TextArea.cs" />
+    <Compile Include="DatabaseGUI\Editing\Data_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\Operation_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\ViewComponent_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\View_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\EditorElement.cs" />
+    <Compile Include="DatabaseGUI\Editing\Operations\Comparison_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\Operations\Constant_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\Operations\Input_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\ViewComponents\CheckBox_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\ViewComponents\Label_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\ViewComponents\TextArea_e.cs" />
+    <Compile Include="DatabaseGUI\View\Data_v.cs" />
+    <Compile Include="DatabaseGUI\View\Operation_v.cs" />
+    <Compile Include="DatabaseGUI\View\Operations\Comparison_v.cs" />
+    <Compile Include="DatabaseGUI\View\Operations\Constant_v.cs" />
+    <Compile Include="DatabaseGUI\View\Operations\Input_v.cs" />
+    <Compile Include="DatabaseGUI\View\View_v.cs" />
+    <Compile Include="DatabaseGUI\View\ViewComponent_v.cs" />
+    <Compile Include="DatabaseGUI\View\ViewComponents\CheckBox_v.cs" />
+    <Compile Include="DatabaseGUI\View\ViewComponents\Label_v.cs" />
+    <Compile Include="DatabaseGUI\View\ViewComponents\TextArea_v.cs" />
     <Compile Include="DBViewSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,15 +157,17 @@
       <DependentUpon>DBViewSetupForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\DraggableManager.cs" />
-    <Compile Include="DatabaseGUI\Editor\EditorElement.cs" />
-    <Compile Include="DatabaseGUI\Serialization\Operations\Constant.cs" />
-    <Compile Include="DatabaseGUI\Serialization\Operations\Input.cs" />
-    <Compile Include="DatabaseGUI\Serialization\Operations\Comparison.cs" />
+    <Compile Include="DatabaseGUI\Serialization\View_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\ViewComponent_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\Operations\Constant_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\Operations\Input_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\Operations\Comparison_s.cs" />
     <Compile Include="DatabaseGUI\Serialization\serialization data structure.cs" />
-    <Compile Include="DatabaseGUI\Serialization\ViewComponents\CheckBox.cs" />
-    <Compile Include="DatabaseGUI\Serialization\Data.cs" />
-    <Compile Include="DatabaseGUI\Serialization\Operation.cs" />
-    <Compile Include="DatabaseGUI\Serialization\ViewComponents\Label.cs" />
+    <Compile Include="DatabaseGUI\Serialization\ViewComponents\CheckBox_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\ViewComponents\Label_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\ViewComponents\TextArea_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\Data_s.cs" />
+    <Compile Include="DatabaseGUI\Serialization\Operation_s.cs" />
     <Compile Include="Editor\EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,9 +194,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DatabaseGUI\Serialization\ViewComponents\TextArea.cs" />
-    <Compile Include="DatabaseGUI\Serialization\View.cs" />
-    <Compile Include="DatabaseGUI\Serialization\ViewComponent.cs" />
     <Compile Include="TableColumn.cs" />
     <EmbeddedResource Include="DBViewForm.resx">
       <DependentUpon>DBViewForm.cs</DependentUpon>
