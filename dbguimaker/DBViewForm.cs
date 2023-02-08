@@ -1,15 +1,15 @@
 ﻿using CefSharp.WinForms;
 using System;
 using System.Windows.Forms;
-using dbguimaker.Serialization;
+using dbguimaker.DatabaseGUI;
 
 namespace dbguimaker
 {
     public partial class DBViewForm : Form
     {
-        protected DatabaseGUIData data;
+        protected Data data;
         public ChromiumWebBrowser ChromiumView { get; set; }
-        public DBViewForm(DatabaseConnection database, DatabaseGUIData data)
+        public DBViewForm(DatabaseConnection database, Data data)
         {
             InitializeComponent();
             this.data = data;

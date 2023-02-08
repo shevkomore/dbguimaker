@@ -20,12 +20,12 @@ namespace dbguimaker.DatabaseGUI
             = new Dictionary<TableColumn, object>();
         public bool IsCompatibleWith(DatabaseConnection database)
         {
-            List<TableColumn> table_data = database.GetTableInfo(tableRequest);
+            List<TableColumn> table_data = database.GetTableInfo(tableName);
             return elements.TrueForAll(e => e.IsCompatibleWith(table_data));
         }
         public void Setup(DatabaseConnection database, Control container)
         {
-            this.dataReader = database.Execute(tableRequest);
+            this.dataReader = database.GetTable(tableName);
             this.container = container;
 
             List<TableColumn> columns = new List<TableColumn>();
@@ -37,6 +37,7 @@ namespace dbguimaker.DatabaseGUI
         private async void Next()
         {
             canLoadNext = dataReader!=null & await dataReader.ReadAsync();
+            if (!canLoadNext) return;
             List<TableColumn> columns = currentRow.Keys.ToList<TableColumn>();
             ParallelEnumerable.ForAll(
                 columns.AsParallel(), 

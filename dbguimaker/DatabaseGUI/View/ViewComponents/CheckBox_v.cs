@@ -10,6 +10,7 @@ namespace dbguimaker.DatabaseGUI
         public override Control Generate(Dictionary<TableColumn, object> reader)
         {
             System.Windows.Forms.CheckBox checkbox = new System.Windows.Forms.CheckBox();
+            checkbox.AutoSize = true;
             checkbox.Text = TableColumn.CastToString(label.Get(reader));
             checkbox.Font = Data.DefaultViewFont;
             checkbox.Checked = TableColumn.CastToBool(data.Get(reader));

@@ -18,7 +18,7 @@ namespace dbguimaker.DatabaseGUI
     public partial class View
     {
         [ProtoMember(1)]
-        public string tableRequest;
+        public string tableName;
         [ProtoMember(2)]
         public List<ViewComponent> elements;
     }

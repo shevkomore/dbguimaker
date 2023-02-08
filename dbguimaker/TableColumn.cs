@@ -26,9 +26,9 @@ namespace dbguimaker
                         case "BLOB":
                             return typeof(object);
                         default:
-                            if(type.StartsWith("NVARCHAR"))
+                            //if(type.StartsWith("NVARCHAR"))
                                 return typeof(string);
-                            throw new FormatException("Cannot convert SQLite type \"" + type + "\" to c# type");
+                            //throw new FormatException("Cannot convert SQLite type \"" + type + "\" to c# type");
                     }
                 } }
             [ProtoBuf.ProtoMember(3)]

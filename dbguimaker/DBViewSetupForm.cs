@@ -2,20 +2,20 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using dbguimaker.Serialization;
+using dbguimaker.DatabaseGUI;
 
 namespace dbguimaker
 {
     public partial class DBViewSetupForm : Form
     {
-        DatabaseGUIData currentData;
+        Data currentData;
         string defaultDatabasePath;
         public DBViewSetupForm()
         {
             InitializeComponent();
-            if (DatabaseGUIData.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
+            if (Data.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
             {
-                OpenData(DatabaseGUIData.OpenDataFileDialog.FileName);
+                OpenData(Data.OpenDataFileDialog.FileName);
                 useFixedPathCheckBox.Checked = true;
                 TryUseDefaultDatabasePath();//might be duplicate call
             }
@@ -28,14 +28,14 @@ namespace dbguimaker
         {
             using (var str = File.OpenRead(data_file))
             {
-                currentData = Serializer.Deserialize<DatabaseGUIData>(str);
+                currentData = Serializer.Deserialize<Data>(str);
                 dataPathTextBox.Text = data_file;
                 dataPathDialogButton.Enabled = false;
                 // for now, only file selection can be used to create a path
                 databasePathTextBox.ReadOnly = true;
                 dataPathTextBox.ReadOnly = true;
                 // ^that might be changed later.
-                defaultDatabasePath = DatabaseGUIData.FollowRelativePath(data_file, currentData.databasePath);
+                defaultDatabasePath = Data.FollowRelativePath(data_file, currentData.databasePath);
             }
         }
         /// <summary>
@@ -65,17 +65,17 @@ namespace dbguimaker
         }
         private void dataPathDialogButton_Click(object sender, EventArgs e)
         {
-            if(DatabaseGUIData.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
+            if(Data.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
             {
-                OpenData(DatabaseGUIData.OpenDataFileDialog.FileName);
+                OpenData(Data.OpenDataFileDialog.FileName);
             }
         }
 
         private void databasePathDialogButton_Click(object sender, EventArgs e)
         {
-            if(DatabaseGUIData.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
+            if(Data.OpenDataFileDialog.ShowDialog() == DialogResult.OK)
             {
-                databasePathTextBox.Text = DatabaseGUIData.OpenDataFileDialog.FileName;
+                databasePathTextBox.Text = Data.OpenDataFileDialog.FileName;
             }
         }
 

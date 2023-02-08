@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using dbguimaker.Serialization;
+using dbguimaker.DatabaseGUI;
 
 namespace dbguimaker
 {
@@ -56,9 +56,9 @@ namespace dbguimaker
         private void viewFileDialogButton_Click(object sender, EventArgs e)
         {
             
-            if(DatabaseGUIData.SaveViewFileDialog.ShowDialog() == DialogResult.OK)
+            if(Data.SaveViewFileDialog.ShowDialog() == DialogResult.OK)
             {
-                NameTextBox.Text = DatabaseGUIData.SaveViewFileDialog.FileName;
+                NameTextBox.Text = Data.SaveViewFileDialog.FileName;
             }
         }
     }

@@ -15,7 +15,7 @@ namespace dbguimaker.DatabaseGUI
         public View() { }
         public View(string table_name)
         {
-            this.tableRequest = "SELECT * FROM "+table_name;
+            this.tableName = table_name;
             this.elements = new List<ViewComponent>();
         }
     }

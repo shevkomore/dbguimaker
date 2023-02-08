@@ -42,27 +42,28 @@ namespace dbguimaker.DatabaseGUI
                     if (Inputs.Length == 0)
                     {
                         editorView.ColumnCount = 1;
-                        EditorView.RowCount = 1;
+                        editorView.RowCount = 1;
                     }
                     else
                     {
                         editorView.ColumnCount = 2;
                         editorView.RowCount = Inputs.Length;
                         //editorView.RowStyles[0].SizeType = SizeType.AutoSize;
+                        for (int i = 0; i < Inputs.Length; i++)
+                        {
+                            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+                            label.Font = LabelFont;
+                            label.Text = InputTexts[i];
+                            editorView.Controls.Add(label);
+                            editorView.SetColumn(label, 0);
+                            editorView.SetRow(label, i);
+                        }
                     }
                     Control representation = GenerateEditorRepresentation();
                     editorView.Controls.Add(representation);
-                    editorView.SetColumn(representation, 0);
+                    representation.Dock = DockStyle.Fill;
+                    //editorView.SetColumn(representation, 1);
                     editorView.SetRowSpan(representation, editorView.RowCount);
-                    for (int i = 0; i < Inputs.Length; i++)
-                    {
-                        Label label = new Label();
-                        label.Font = LabelFont;
-                        label.Text = InputTexts[i];
-                        editorView.Controls.Add(label);
-                        editorView.SetColumn(label, 1);
-                        editorView.SetRow(label, i);
-                    }
                 }
                 return editorView;
             }
