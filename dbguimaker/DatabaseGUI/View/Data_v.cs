@@ -3,18 +3,18 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace dbguimaker.Serialization
+namespace dbguimaker.DatabaseGUI
 {
     /// <summary>
     /// Describes an object that contains all data for creating a database view
     /// </summary>
-    public partial class DatabaseGUIData
+    public partial class Data
     {
-        internal static Font defaultFont = new Font(FontFamily.GenericSansSerif, 14);
+        internal static Font DefaultViewFont = new Font(FontFamily.GenericSansSerif, 14);
         internal static OpenFileDialog OpenDataFileDialog = new OpenFileDialog();
         internal static OpenFileDialog OpenDatabaseFileDialog = new OpenFileDialog();
         internal static SaveFileDialog SaveViewFileDialog = new SaveFileDialog();
-        static DatabaseGUIData()
+        static Data()
         {
             //
             //  OpenDataFileDialog
@@ -39,13 +39,18 @@ namespace dbguimaker.Serialization
             SaveViewFileDialog.AddExtension = true;
             SaveViewFileDialog.CheckPathExists = true;
         }
-        public DatabaseGUIData() { }
-        public DatabaseGUIData(string database_name)
-        {
-            this.databasePath = database_name;
-            this.views = new List<DatabaseGUIView>();
-        }
-
+        /// <summary>
+        /// Generates a path that can be used to get from folder that contains start to target.
+        /// The path is compatible with <see cref="Path.GetFullPath(string)"/> if combined with start's directory.
+        /// </summary>
+        /// <param name="start">a full path to the file from whose folder the path is constructed</param>
+        /// <param name="target">a full path to the file the constructed path should point to</param>
+        /// <returns>
+        /// a string that, when used in console or <see cref="File"/> from start's directory,
+        /// would open the same file as target if the directory structure isn't changed;
+        /// but will open the same file if the directory structure is changed from root
+        /// to first common folder between these files.
+        /// </returns>
         public static string CreateRelativePath(string start, string target)
         {
             //I think there's a cleaner way to do this, so for now I've explained what I'm doing.
@@ -88,15 +93,20 @@ namespace dbguimaker.Serialization
             }
             return path + target;
         }
+        /// <summary>
+        /// Creates an absolute path which points to the same file as the relative_path if
+        /// it were called from start's directory.
+        /// </summary>
+        /// <param name="start">a full path to the file from whose folder the path was constructed</param>
+        /// <param name="relative_path">a relative path to the file the full path should point to</param>
+        /// <returns>The path for which:
+        /// <code>FollowRelativePath(start, CreateRelativePath(start, target)) == target</code>
+        /// returns true.
+        /// </returns>
         public static string FollowRelativePath(string start, string relative_path)
-        => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(start), relative_path));
+            => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(start), relative_path));
+
         public bool IsCompatibleWith(DatabaseConnection database)
-        {
-            foreach (DatabaseGUIView e in this.views)
-                if (!e.IsCompatibleWith(database.GetTableInfo(e.tableName))) return false;
-
-            return true;
-        }
-
+            => views.TrueForAll(e => e.IsCompatibleWith(database));
     }
 }

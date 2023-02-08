@@ -1,19 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace dbguimaker.Serialization
+namespace dbguimaker.DatabaseGUI
 {
-    public partial class DatabaseGUILabel
+    public partial class Label
     {
-        public DatabaseGUILabel() { }
-        public DatabaseGUILabel(DatabaseGUIOperation text) {
-            this.text = text;
-        }
-
         public override bool IsCompatibleWith(List<TableColumn> table_data) => text.IsCompatibleWith(table_data);
         public override Control Generate(Dictionary<TableColumn, object> row)
         {
-            Label label = new Label();
+            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
             label.Text = text.GetString(row);
             return label;
         }

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace dbguimaker.Serialization
+namespace dbguimaker.DatabaseGUI
 {
     /// <summary>
     /// Describes a view of one table
     /// </summary>
-    public partial class DatabaseGUIView
+    public partial class View
     {
         protected Control container;
         protected SQLiteDataReader dataReader;
@@ -18,17 +18,14 @@ namespace dbguimaker.Serialization
         public bool CanLoadNext{ get { return canLoadNext; } }//
         protected Dictionary<TableColumn, object> currentRow
             = new Dictionary<TableColumn, object>();
-        public DatabaseGUIView() { }
-        public DatabaseGUIView(string table_name)
+        public bool IsCompatibleWith(DatabaseConnection database)
         {
-            this.tableName = table_name;
-            this.elements = new List<DatabaseGUIViewElement>();
+            List<TableColumn> table_data = database.GetTableInfo(tableRequest);
+            return elements.TrueForAll(e => e.IsCompatibleWith(table_data));
         }
-        public bool IsCompatibleWith(List<TableColumn> table_data)
-            => elements.TrueForAll(e => e.IsCompatibleWith(table_data));
         public void Setup(DatabaseConnection database, Control container)
         {
-            this.dataReader = database.GetTable(tableName);
+            this.dataReader = database.Execute(tableRequest);
             this.container = container;
 
             List<TableColumn> columns = new List<TableColumn>();

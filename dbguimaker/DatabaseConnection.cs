@@ -31,11 +31,11 @@ namespace dbguimaker
             database.Open();
         }
         /// <summary>
-        /// Executes the command and returns the result.
+        /// Executes the command and returns the first result.
         /// </summary>
         /// <param name="command">the command that will be executed</param>
         /// <returns>the first row of results from the command</returns>
-        public object Execute(string command) => new SQLiteCommand(command, database).ExecuteScalar();
+        public object ExecuteOnce(string command) => new SQLiteCommand(command, database).ExecuteScalar();
         /// <summary>
         /// Returns the view with names of all tables in the database
         /// </summary>
@@ -55,6 +55,8 @@ namespace dbguimaker
                 );
             return result;
         }
+        public SQLiteDataReader Execute(string command)
+            => new SQLiteCommand(command, database).ExecuteReader();
         /// <summary>
         /// Gets a view of the table
         /// </summary>

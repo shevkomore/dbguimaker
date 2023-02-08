@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace dbguimaker.Serialization
+namespace dbguimaker.DatabaseGUI
 {
-    public partial class DatabaseGUIInput
+    public partial class Input
     {
-        public DatabaseGUIInput() { }
-        public DatabaseGUIInput(TableColumn data)
-        {
-            this.column = data;
-        }
         public override bool IsCompatibleWith(List<TableColumn> table_data)
             => table_data.Contains(column);
         public override object Get(Dictionary<TableColumn, object> row)

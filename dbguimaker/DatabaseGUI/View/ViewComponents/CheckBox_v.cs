@@ -1,22 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace dbguimaker.Serialization
+namespace dbguimaker.DatabaseGUI
 {
-    public partial class DatabaseGUICheckBox
+    public partial class CheckBox
     {
-        public DatabaseGUICheckBox() { }
-        public DatabaseGUICheckBox(DatabaseGUIOperation label, DatabaseGUIOperation data)
-        {
-            this.label = label;
-            this.data = data;
-        }
-        public override bool IsCompatibleWith(List<TableColumn> table_data) => data.IsCompatibleWith(table_data);
+        public override bool IsCompatibleWith(List<TableColumn> table_data) 
+            => data.IsCompatibleWith(table_data) && label.IsCompatibleWith(table_data);
         public override Control Generate(Dictionary<TableColumn, object> reader)
         {
-            CheckBox checkbox = new CheckBox();
+            System.Windows.Forms.CheckBox checkbox = new System.Windows.Forms.CheckBox();
             checkbox.Text = TableColumn.CastToString(label.Get(reader));
-            checkbox.Font = DatabaseGUIData.defaultFont;
+            checkbox.Font = Data.DefaultViewFont;
             checkbox.Checked = TableColumn.CastToBool(data.Get(reader));
             checkbox.Enabled = false;
             return checkbox;
