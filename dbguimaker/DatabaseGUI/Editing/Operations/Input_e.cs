@@ -16,6 +16,8 @@ namespace dbguimaker.DatabaseGUI
             repr.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             repr.Text = "Get value of "+column.Name;
             repr.Font = Data.DefaultRepresentationFont;
+            repr.Enabled = false;
+
             return repr;
         }
     }

@@ -17,6 +17,8 @@ namespace dbguimaker.DatabaseGUI
             repr.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             repr.Text = "\""+value+"\"";
             repr.Font = Data.DefaultRepresentationFont;
+            repr.Enabled = false;
+
             return repr;
         }
     }

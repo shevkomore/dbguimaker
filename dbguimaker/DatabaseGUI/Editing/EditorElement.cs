@@ -18,6 +18,15 @@ namespace dbguimaker.DatabaseGUI
         /// (which implies that the size of this array must be the same as the size of <see cref="Inputs"/> array)
         /// </summary>
         public abstract string[] InputTexts { get; }
+        private Control[] inputControls;
+        public Control[] InputControls
+        {
+            get
+            {
+                if (inputControls == null) return new Control[0];
+                return inputControls;
+            }
+        }
         /// <summary>
         /// The <see cref="Control"/> that represents this element in editor.
         /// Upon first call (or after <see cref="DeleteEditorView"/>)
@@ -43,15 +52,18 @@ namespace dbguimaker.DatabaseGUI
                     {
                         editorView.ColumnCount = 1;
                         editorView.RowCount = 1;
+                        inputControls = new Control[0];
                     }
                     else
                     {
                         editorView.ColumnCount = 2;
                         editorView.RowCount = Inputs.Length;
+                        inputControls = new Control[Inputs.Length];
                         //editorView.RowStyles[0].SizeType = SizeType.AutoSize;
                         for (int i = 0; i < Inputs.Length; i++)
                         {
                             System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+                            inputControls[i] = label;
                             label.Font = LabelFont;
                             label.Text = InputTexts[i];
                             editorView.Controls.Add(label);
@@ -59,7 +71,12 @@ namespace dbguimaker.DatabaseGUI
                             editorView.SetRow(label, i);
                         }
                     }
+                    foreach(RowStyle style in editorView.RowStyles)
+                        style.SizeType = SizeType.AutoSize;
+                    foreach (ColumnStyle style in editorView.ColumnStyles)
+                        style.SizeType = SizeType.AutoSize;
                     Control representation = GenerateEditorRepresentation();
+                    representation.Enabled = false;
                     editorView.Controls.Add(representation);
                     representation.Dock = DockStyle.Fill;
                     //editorView.SetColumn(representation, 1);

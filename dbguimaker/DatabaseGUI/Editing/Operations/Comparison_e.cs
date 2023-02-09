@@ -28,6 +28,7 @@ namespace dbguimaker.DatabaseGUI
                     break;
             }
             repr.Font = Data.DefaultRepresentationFont;
+            repr.Enabled = false;
 
             return repr;
         }

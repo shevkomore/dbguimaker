@@ -34,15 +34,15 @@
             this.toolStripRefreshButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.columnsListBox = new System.Windows.Forms.ListBox();
             this.tablesListBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.viewsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,7 +70,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(989, 25);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
@@ -106,6 +106,11 @@
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.ToolTipText = "Change Connections";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -116,6 +121,22 @@
             this.toolStripButton3.Text = "toolStripButton3";
             this.toolStripButton3.ToolTipText = "Delete Element";
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.ToolTipText = "Save created form";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.columnsListBox);
@@ -123,7 +144,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 425);
+            this.groupBox1.Size = new System.Drawing.Size(206, 585);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tables / Fields";
@@ -136,7 +157,7 @@
             "a"});
             this.columnsListBox.Location = new System.Drawing.Point(3, 111);
             this.columnsListBox.Name = "columnsListBox";
-            this.columnsListBox.Size = new System.Drawing.Size(200, 311);
+            this.columnsListBox.Size = new System.Drawing.Size(200, 471);
             this.columnsListBox.TabIndex = 1;
             this.columnsListBox.SelectedIndexChanged += new System.EventHandler(this.columnsListBox_SelectedIndexChanged);
             // 
@@ -161,7 +182,7 @@
             this.panel1.Location = new System.Drawing.Point(206, 25);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(594, 425);
+            this.panel1.Size = new System.Drawing.Size(783, 585);
             this.panel1.TabIndex = 3;
             // 
             // viewsLayoutPanel
@@ -169,40 +190,19 @@
             this.viewsLayoutPanel.ColumnCount = 1;
             this.viewsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.viewsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.viewsLayoutPanel.Location = new System.Drawing.Point(437, 0);
+            this.viewsLayoutPanel.Location = new System.Drawing.Point(484, 0);
             this.viewsLayoutPanel.Name = "viewsLayoutPanel";
             this.viewsLayoutPanel.RowCount = 2;
             this.viewsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.viewsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.viewsLayoutPanel.Size = new System.Drawing.Size(157, 425);
+            this.viewsLayoutPanel.Size = new System.Drawing.Size(299, 585);
             this.viewsLayoutPanel.TabIndex = 0;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton4.Text = "toolStripButton4";
-            this.toolStripButton4.ToolTipText = "Save created form";
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(989, 610);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
