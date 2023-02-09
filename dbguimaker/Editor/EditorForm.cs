@@ -13,6 +13,17 @@ namespace dbguimaker
     public partial class EditorForm : Form
     {
         private Graphics graphics;
+        private Pen pen = new Pen(Color.DarkRed, 2);
+        private InterfaceOperationMode operationMode = InterfaceOperationMode.Default;
+
+        enum InterfaceOperationMode
+        {
+            Default,
+            Deletion,
+            Reconnection
+        }
+
+
         public HashSet<EditorElement> createdElements = new HashSet<EditorElement> ();
         public DatabaseConnection db;
         public string FilePath;
@@ -37,6 +48,7 @@ namespace dbguimaker
             //END OF TEMP
 
             graphics = panel1.CreateGraphics();
+            panel1.Paint += panel1_Paint;
         }
 
         private void EditorForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -82,7 +94,7 @@ namespace dbguimaker
 
         private void toolStripRefreshButton_Click(object sender, EventArgs e)
         {
-            if (data.views.Count < 1) return;
+            if (operationMode != InterfaceOperationMode.Default || data.views.Count < 1) return;
             /*HashSet<EditorElement> els = new HashSet<EditorElement>();
             TraverseTree(currentView, ref els);*/
             TraverseTree(currentView, ref createdElements);
@@ -114,9 +126,66 @@ namespace dbguimaker
                 }
             }
         }
+
+        private void toolStripSaveButton_Click(object sender, EventArgs e)
+        {
+            if (operationMode != InterfaceOperationMode.Default) return;
+            using(var output = File.OpenWrite(FilePath))
+            {
+                Serializer.Serialize(output, data);
+            }
+        }
+
+        private void ToolStripDeleteButton_Click(object sender, EventArgs e)
+        {
+            if(operationMode != InterfaceOperationMode.Default) return;
+            operationMode = InterfaceOperationMode.Deletion;
+            //you would like to have a mark on last element focused
+            //which would mean adding an EventHandler onto all of created EditorElements
+            //...which doesn't seem like a problem.
+        }
+
+
+        private void panel1_Paint(object sender, PaintEventArgs args)
+        {
+            graphics.Clear(BackColor);
+
+            foreach (EditorElement o in createdElements)
+            {
+                Size o_pos = new Size(o.EditorView.Location);
+                if (o is ViewComponent)
+                    o_pos = new Size(o.EditorView.Parent.Location + o_pos);
+                for (int i = 0; i < o.Inputs.Length; ++i)
+                {
+                    if (o.Inputs[i] == null) continue;
+                    graphics.DrawLine(pen,
+                        GetCenter(o.InputControls[i]) + o_pos,
+                        GetCenter(o.Inputs[i].EditorView));
+                }
+            }
+        }
+
+        private void DeletionCall(object sender, MouseEventArgs args)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        private static Point GetCenter(Control control)
+            => control.Location + new Size(control.Size.Width / 2, control.Size.Height / 2);
+
         void TraverseTree(DatabaseGUI.View view, ref HashSet<EditorElement> operations)
         {
-            foreach(EditorElement element in view.elements)
+            foreach (EditorElement element in view.elements)
             {
                 operations.Add(element);
                 TraverseTree(element, ref operations);
@@ -124,49 +193,10 @@ namespace dbguimaker
         }
         void TraverseTree(DatabaseGUI.EditorElement element, ref HashSet<EditorElement> operations)
         {
-            foreach(Operation o in element.Inputs)
+            foreach (Operation o in element.Inputs)
             {
                 operations.Add(o);
                 TraverseTree(o, ref operations);
-            }
-        }
-
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            using(var output = File.OpenWrite(FilePath))
-            {
-                Serializer.Serialize(output, data);
-            }
-        }
-        public void DrawConnections(HashSet<Operation> operations)
-        {
-            /*Pen pen = new Pen(Color.DarkRed, 2);
-
-            foreach(Operation o in operations)
-            {
-                for(int i = 0; i < o.Inputs.Length; ++i)
-                {
-                    if (o.Inputs[i] == null) continue;
-                    graphics.DrawLine(pen,
-                        o.InputControls[i].Location,
-                        o.Inputs[i].EditorView.Location);
-                }
-            }*/
-        }
-        //TODO didn't work
-        private void EditorForm_Paint(object sender, PaintEventArgs args)
-        {
-            Pen pen = new Pen(Color.DarkRed, 2);
-
-            foreach (Operation o in createdElements)
-            {
-                for (int i = 0; i < o.Inputs.Length; ++i)
-                {
-                    if (o.Inputs[i] == null) continue;
-                    graphics.DrawLine(pen,
-                        o.InputControls[i].Location,
-                        o.Inputs[i].EditorView.Location);
-                }
             }
         }
     }
