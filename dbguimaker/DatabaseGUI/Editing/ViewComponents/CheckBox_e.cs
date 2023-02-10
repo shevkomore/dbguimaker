@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace dbguimaker.DatabaseGUI
@@ -6,6 +7,20 @@ namespace dbguimaker.DatabaseGUI
     public partial class CheckBox
     {
         public override Operation[] Inputs => new Operation[2] {this.label, this.data};
+        public override void SetInput(int index, Operation operation)
+        {
+            switch (index)
+            {
+                case 0:
+                    label = operation;
+                    return;
+                case 1:
+                    data = operation;
+                    return;
+                default:
+                    throw new IndexOutOfRangeException();
+            }
+        }
 
         public override string[] InputTexts => new string[2] { "Label", "Value" };
 

@@ -1,10 +1,15 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace dbguimaker.DatabaseGUI
 {
     public partial class Input
     {
         public override Operation[] Inputs => new Operation[0];
+        public override void SetInput(int index, Operation operation)
+        {
+            throw new IndexOutOfRangeException();
+        }
 
         public override string[] InputTexts => new string[0];
 

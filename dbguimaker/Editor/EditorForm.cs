@@ -7,6 +7,8 @@ using dbguimaker.DatabaseGUI;
 using ProtoBuf;
 using System.Drawing.Drawing2D;
 using System.Xml.Linq;
+using dbguimaker.DatabaseGUI.Editing;
+using System.Linq;
 
 namespace dbguimaker
 {
@@ -25,6 +27,7 @@ namespace dbguimaker
 
 
         public HashSet<EditorElement> createdElements = new HashSet<EditorElement> ();
+        private EditorElementInput pendingConnection;
         public DatabaseConnection db;
         public string FilePath;
         /*TEMP*/
@@ -49,6 +52,12 @@ namespace dbguimaker
 
             graphics = panel1.CreateGraphics();
             panel1.Paint += panel1_Paint;
+            panel1.MouseMove += Panel1_MouseMove;
+        }
+
+        private void Panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (operationMode == InterfaceOperationMode.Reconnection) panel1_Paint(sender, null);
         }
 
         private void EditorForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -110,10 +119,13 @@ namespace dbguimaker
                         viewsLayoutPanel.Controls.Remove(element.EditorView);
                     element.DeleteEditorView();
                 }*/
-                Control c = element.EditorView;
+                EditorElementContainer c = element.EditorView;
                 if (element is ViewComponent & !viewsLayoutPanel.Controls.Contains(c))
                 {
                     viewsLayoutPanel.Controls.Add(c);
+                    foreach (EditorElementInput input in c.InputControls)
+                        if (input != null)
+                            input.MouseClick += EditorElementInput_MouseClick;
                     TraverseTree(element, ref createdElements);
                 }
                 if (element is Operation & !panel1.Controls.Contains(c))
@@ -121,15 +133,55 @@ namespace dbguimaker
                     panel1.Controls.Add(c);
                     c.Draggable(true);
                     c.GetDragSettings().AvoidOverlap = false;
+                    c.MouseClick += EditorElement_MouseClick;
+                    foreach(EditorElementInput input in c.InputControls)
+                        if(input != null)
+                            input.MouseClick += EditorElementInput_MouseClick;
+                    
                     c.Top = i; c.Left = i;
                     i += 30;
                 }
             }
         }
 
+        private void EditorElementInput_MouseClick(object sender, MouseEventArgs args)
+        {
+            if(operationMode == InterfaceOperationMode.Default)
+            {
+                pendingConnection = sender as EditorElementInput;
+                foreach (EditorElement e in createdElements)
+                    e.DeleteInput(pendingConnection.Input);
+                operationMode = InterfaceOperationMode.Reconnection;
+            }
+        }
+
+        private void EditorElement_MouseClick(object sender, MouseEventArgs args)
+        {
+            if(sender is EditorElementContainer )
+            {
+                EditorElementContainer c = sender as EditorElementContainer;
+                if(operationMode == InterfaceOperationMode.Deletion)
+                {
+                    createdElements.Remove(c.Element);
+                    foreach (EditorElement e in createdElements)
+                        e.DeleteInput((Operation)c.Element);
+                    c.Element.DeleteEditorView();
+                    operationMode = InterfaceOperationMode.Default;
+                    return;
+                }
+                if(operationMode == InterfaceOperationMode.Reconnection)
+                {
+                    pendingConnection.ConnectTo(c);
+                    operationMode = InterfaceOperationMode.Default;
+                    panel1_Paint(sender, null);
+                    return;
+                }
+            }
+        }
+
         private void toolStripSaveButton_Click(object sender, EventArgs e)
         {
-            if (operationMode != InterfaceOperationMode.Default) return;
+            if (operationMode == InterfaceOperationMode.Reconnection) return;
             using(var output = File.OpenWrite(FilePath))
             {
                 Serializer.Serialize(output, data);
@@ -138,11 +190,17 @@ namespace dbguimaker
 
         private void ToolStripDeleteButton_Click(object sender, EventArgs e)
         {
-            if(operationMode != InterfaceOperationMode.Default) return;
+            if(operationMode == InterfaceOperationMode.Deletion)
+            {
+                operationMode = InterfaceOperationMode.Default;
+                return;
+            } 
             operationMode = InterfaceOperationMode.Deletion;
-            //you would like to have a mark on last element focused
-            //which would mean adding an EventHandler onto all of created EditorElements
-            //...which doesn't seem like a problem.
+        }
+
+        private void toolStripAddButton_Click(object sender, EventArgs e)
+        {
+
         }
 
 
@@ -157,17 +215,20 @@ namespace dbguimaker
                     o_pos = new Size(o.EditorView.Parent.Location + o_pos);
                 for (int i = 0; i < o.Inputs.Length; ++i)
                 {
-                    if (o.Inputs[i] == null) continue;
+                    if (o.Inputs[i] == null || o.Inputs[i] == DatabaseGUI.Constant.Default) continue;
                     graphics.DrawLine(pen,
-                        GetCenter(o.InputControls[i]) + o_pos,
+                        GetCenter(o.EditorView.InputControls[i]) + o_pos,
                         GetCenter(o.Inputs[i].EditorView));
                 }
             }
-        }
-
-        private void DeletionCall(object sender, MouseEventArgs args)
-        {
-
+            if (operationMode == InterfaceOperationMode.Reconnection)
+            {
+                Size o_pos = new Size(pendingConnection.Element.EditorView.Location);
+                if (pendingConnection.Element is ViewComponent)
+                    o_pos = new Size(pendingConnection.Element.EditorView.Parent.Location + o_pos);
+                graphics.DrawLine(pen, GetCenter(pendingConnection) + o_pos,
+                    MousePosition - new Size(panel1.Location) - new Size(Location));
+            }
         }
 
 
@@ -195,6 +256,7 @@ namespace dbguimaker
         {
             foreach (Operation o in element.Inputs)
             {
+                if(o == null) continue;
                 operations.Add(o);
                 TraverseTree(o, ref operations);
             }

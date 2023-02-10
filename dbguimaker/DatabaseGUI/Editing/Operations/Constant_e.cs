@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Windows.Forms;
 
 namespace dbguimaker.DatabaseGUI
@@ -6,6 +7,10 @@ namespace dbguimaker.DatabaseGUI
     public partial class Constant
     {
         public override Operation[] Inputs => new Operation[0];
+        public override void SetInput(int index, Operation operation)
+        {
+             throw new IndexOutOfRangeException();
+        }
 
         public override string[] InputTexts => new string[0];
 

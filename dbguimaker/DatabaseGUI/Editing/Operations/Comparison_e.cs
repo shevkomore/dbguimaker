@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Windows.Forms;
 
 namespace dbguimaker.DatabaseGUI
@@ -6,6 +7,20 @@ namespace dbguimaker.DatabaseGUI
     public partial class Comparison
     {
         public override Operation[] Inputs => new Operation[2] {this.firstOperand, this.secondOperand};
+        public override void SetInput(int index, Operation operation)
+        {
+            switch (index)
+            {
+                case 0:
+                    firstOperand = operation;
+                    return;
+                case 1:
+                    secondOperand = operation;
+                    return;
+                default:
+                    throw new IndexOutOfRangeException();
+            }
+        }
 
         public override string[] InputTexts => new string[2] {"A", "B"};
 

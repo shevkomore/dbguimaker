@@ -130,6 +130,9 @@
     <Compile Include="ChromiumHideMenu.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="DatabaseGUI\Editing\Data_e.cs" />
+    <Compile Include="DatabaseGUI\Editing\EditorElementControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DatabaseGUI\Editing\Operation_e.cs" />
     <Compile Include="DatabaseGUI\Editing\ViewComponent_e.cs" />
     <Compile Include="DatabaseGUI\Editing\View_e.cs" />

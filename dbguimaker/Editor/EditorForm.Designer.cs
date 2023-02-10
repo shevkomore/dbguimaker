@@ -33,7 +33,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripRefreshButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripAddButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripConnectButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripDeleteButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -62,7 +61,6 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripRefreshButton,
             this.toolStripAddButton,
-            this.toolStripConnectButton,
             this.toolStripSeparator1,
             this.ToolStripDeleteButton,
             this.toolStripSeparator2,
@@ -95,16 +93,7 @@
             this.toolStripAddButton.Size = new System.Drawing.Size(23, 22);
             this.toolStripAddButton.Text = "toolStripButton1";
             this.toolStripAddButton.ToolTipText = "Create New Element";
-            // 
-            // toolStripConnectButton
-            // 
-            this.toolStripConnectButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripConnectButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripConnectButton.Image")));
-            this.toolStripConnectButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripConnectButton.Name = "toolStripConnectButton";
-            this.toolStripConnectButton.Size = new System.Drawing.Size(23, 22);
-            this.toolStripConnectButton.Text = "toolStripButton2";
-            this.toolStripConnectButton.ToolTipText = "Change Connections";
+            this.toolStripAddButton.Click += new System.EventHandler(this.toolStripAddButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -231,7 +220,6 @@
         private System.Windows.Forms.ToolStripButton toolStripRefreshButton;
         private System.Windows.Forms.TableLayoutPanel viewsLayoutPanel;
         private System.Windows.Forms.ToolStripButton toolStripAddButton;
-        private System.Windows.Forms.ToolStripButton toolStripConnectButton;
         private System.Windows.Forms.ToolStripButton ToolStripDeleteButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
