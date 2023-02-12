@@ -22,7 +22,7 @@ namespace dbguimaker.DatabaseGUI.Editing
                 return inputControls;
             }
         }
-        public EditorElementContainer(EditorElement element, Operation[] inputs) : base()
+        public EditorElementContainer(EditorElement element) : base()
         {
             Element = element;
             inputControls = new EditorElementInput[Element.Inputs.Length];

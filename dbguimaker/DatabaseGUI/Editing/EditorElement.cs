@@ -40,7 +40,7 @@ namespace dbguimaker.DatabaseGUI
                 if (editorView == null)
                 {
                     
-                    editorView = new EditorElementContainer(this, Inputs);
+                    editorView = new EditorElementContainer(this);
                     editorView.AutoSize = true;
                     editorView.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                     

@@ -12,6 +12,15 @@ namespace dbguimaker
         public NewProjectForm()
         {
             InitializeComponent();
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter =
+               "SQLite Database files|*.db";
+            dialog.Title = "Select a file";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                DatabaseTextBox.Text = dialog.FileName;
+                NameTextBox.Text = GetNewFileName(dialog.FileName);
+            }
         }
         private string GetNewFileName(string database_path)
         {

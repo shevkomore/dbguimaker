@@ -159,6 +159,18 @@
     <Compile Include="DBViewSetupForm.Designer.cs">
       <DependentUpon>DBViewSetupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editor\Dialogs\ComparisonDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Dialogs\ComparisonDialog.Designer.cs">
+      <DependentUpon>ComparisonDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Dialogs\ConstantDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\Dialogs\ConstantDialog.Designer.cs">
+      <DependentUpon>ConstantDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editor\DraggableManager.cs" />
     <Compile Include="DatabaseGUI\Serialization\View_s.cs" />
     <Compile Include="DatabaseGUI\Serialization\ViewComponent_s.cs" />
@@ -203,6 +215,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DBViewSetupForm.resx">
       <DependentUpon>DBViewSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Dialogs\ComparisonDialog.resx">
+      <DependentUpon>ComparisonDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Dialogs\ConstantDialog.resx">
+      <DependentUpon>ConstantDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
