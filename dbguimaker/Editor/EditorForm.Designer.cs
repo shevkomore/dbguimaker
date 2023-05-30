@@ -43,12 +43,13 @@
             this.ToolStripDeleteButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.addConditionToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.InputsLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tablesListBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.viewsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.InputsLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.addSumToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -73,12 +74,13 @@
             this.addTextboxToolStripButton,
             this.toolStripSeparator4,
             this.addConstantToolStripButton,
+            this.addSumToolStripButton,
             this.addComparisonToolStripButton,
+            this.addConditionToolStripButton,
             this.toolStripSeparator3,
             this.ToolStripDeleteButton,
             this.toolStripSeparator2,
-            this.toolStripButton4,
-            this.toolStripButton1});
+            this.toolStripButton4});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -196,14 +198,16 @@
             this.toolStripButton4.ToolTipText = "Save created form";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripSaveButton_Click);
             // 
-            // toolStripButton1
+            // addConditionToolStripButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.addConditionToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addConditionToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("addConditionToolStripButton.Image")));
+            this.addConditionToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addConditionToolStripButton.Name = "addConditionToolStripButton";
+            this.addConditionToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addConditionToolStripButton.Text = "addConditionToolStripButton";
+            this.addConditionToolStripButton.ToolTipText = "Add a Condition";
+            this.addConditionToolStripButton.Click += new System.EventHandler(this.addConditionToolStripButton_Click);
             // 
             // groupBox1
             // 
@@ -216,6 +220,18 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tables / Fields";
+            // 
+            // InputsLayoutPanel
+            // 
+            this.InputsLayoutPanel.AutoScroll = true;
+            this.InputsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InputsLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.InputsLayoutPanel.Location = new System.Drawing.Point(3, 111);
+            this.InputsLayoutPanel.Name = "InputsLayoutPanel";
+            this.InputsLayoutPanel.Size = new System.Drawing.Size(200, 471);
+            this.InputsLayoutPanel.TabIndex = 1;
+            this.InputsLayoutPanel.WrapContents = false;
+            this.InputsLayoutPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.InputsLayoutPanel_Scroll);
             // 
             // tablesListBox
             // 
@@ -255,17 +271,16 @@
             this.viewsLayoutPanel.Size = new System.Drawing.Size(282, 585);
             this.viewsLayoutPanel.TabIndex = 0;
             // 
-            // InputsLayoutPanel
+            // addSumToolStripButton
             // 
-            this.InputsLayoutPanel.AutoScroll = true;
-            this.InputsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InputsLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.InputsLayoutPanel.Location = new System.Drawing.Point(3, 111);
-            this.InputsLayoutPanel.Name = "InputsLayoutPanel";
-            this.InputsLayoutPanel.Size = new System.Drawing.Size(200, 471);
-            this.InputsLayoutPanel.TabIndex = 1;
-            this.InputsLayoutPanel.WrapContents = false;
-            this.InputsLayoutPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.InputsLayoutPanel_Scroll);
+            this.addSumToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addSumToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("addSumToolStripButton.Image")));
+            this.addSumToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addSumToolStripButton.Name = "addSumToolStripButton";
+            this.addSumToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.addSumToolStripButton.Text = "toolStripButton1";
+            this.addSumToolStripButton.ToolTipText = "Add a Sum";
+            this.addSumToolStripButton.Click += new System.EventHandler(this.addSumToolStripButton_Click);
             // 
             // EditorForm
             // 
@@ -307,7 +322,8 @@
         private System.Windows.Forms.ToolStripButton addConstantToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton addComparisonToolStripButton;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton addConditionToolStripButton;
         private System.Windows.Forms.FlowLayoutPanel InputsLayoutPanel;
+        private System.Windows.Forms.ToolStripButton addSumToolStripButton;
     }
 }

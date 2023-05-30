@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="dbguimaker.DatabaseGUI.Data">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAEgAAAAQAAAAQAAAgAAAoAAAAAAAAANAAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Data_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="views" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Operation">
+    <Position X="18.5" Y="2" Width="2.25" />
+    <Members>
+      <Method Name="Deserialize" Hidden="true" />
+      <Method Name="FinalizeDeserialization" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AACQAAAAAAAAAABAAAAABAAAgABAgAAAAAAAAACAAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Operation_e.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Comparison">
+    <Position X="19" Y="9.5" Width="1.5" />
+    <Members>
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="dbguimaker.DatabaseGUI.Comparison.OperationType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DatabaseGUI\Serialization\Operations\Comparison_s.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <InheritanceLine Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.75" Y="3.75" />
+        <Point X="21.666" Y="3.75" />
+        <Point X="21.666" Y="10.938" />
+        <Point X="20.5" Y="10.938" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="firstOperand" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19" Y="10.562" />
+        <Point X="17.993" Y="10.562" />
+        <Point X="17.993" Y="4.125" />
+        <Point X="18.5" Y="4.125" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.319" Y="0.597" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="secondOperand" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19" Y="11.491" />
+        <Point X="17.883" Y="11.491" />
+        <Point X="17.883" Y="3.812" />
+        <Point X="18.5" Y="3.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.112" Y="0.048" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAABQABAAAAABAAAEAAAAAAAAAAACAAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Operations\Comparison_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="firstOperand" />
+      <Field Name="secondOperand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Condition">
+    <Position X="19" Y="6" Width="1.5" />
+    <Members>
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="20.75" Y="4.25" />
+        <Point X="21.073" Y="4.25" />
+        <Point X="21.073" Y="6.713" />
+        <Point X="20.5" Y="6.713" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="Check" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.25" Y="6" />
+        <Point X="20.25" Y="4.877" />
+        <Point X="20.438" Y="4.877" />
+        <Point X="20.438" Y="4.387" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.279" Y="0.051" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ifTrue" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.375" Y="6" />
+        <Point X="20.375" Y="5.001" />
+        <Point X="20.562" Y="5.001" />
+        <Point X="20.562" Y="4.387" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.416" Y="0.258" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ifFalse" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.125" Y="6" />
+        <Point X="20.125" Y="5.468" />
+        <Point X="20.126" Y="5.468" />
+        <Point X="20.126" Y="4.753" />
+        <Point X="20.312" Y="4.753" />
+        <Point X="20.312" Y="4.387" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.161" Y="0.484" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAQABAAAAABAAAEAAAAAAAAAAYAAAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Operations\Condition_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Check" />
+      <Field Name="ifTrue" />
+      <Field Name="ifFalse" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Constant">
+    <Position X="22.75" Y="3" Width="1.5" />
+    <Members>
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.75" Y="3.25" />
+        <Point X="21.125" Y="3.25" />
+        <Point X="21.125" Y="3.25" />
+        <Point X="22.75" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAQABAAAAAJAAAEAAAgCAAAAAAAAAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Operations\Constant_e.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Input">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAQABAAAAABAAAUAAAgAAAAAAAAAAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Operations\Input_e.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Sum">
+    <Position X="19" Y="7.75" Width="1.5" />
+    <Members>
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="20.75" Y="4" />
+        <Point X="21.415" Y="4" />
+        <Point X="21.415" Y="8.463" />
+        <Point X="20.5" Y="8.463" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="firstOperand" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19" Y="8.625" />
+        <Point X="18.646" Y="8.625" />
+        <Point X="18.646" Y="5.594" />
+        <Point X="19.188" Y="5.594" />
+        <Point X="19.188" Y="4.387" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="secondOperand" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19" Y="8.438" />
+        <Point X="18.719" Y="8.438" />
+        <Point X="18.719" Y="5.742" />
+        <Point X="19.438" Y="5.742" />
+        <Point X="19.438" Y="4.387" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.101" Y="0.463" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABQABAAAAABAAAEAAAAAAAAAAACAAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\Operations\Sum_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="firstOperand" />
+      <Field Name="secondOperand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.View">
+    <Position X="12.5" Y="2" Width="1.5" />
+    <Members>
+      <Method Name="FinalizeDeserialization" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>BggAAAAICAQAABgAAAAAAAAAgAAAgAABAAAAAEAAAEA=</HashCode>
+      <FileName>DatabaseGUI\Editing\View_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="elements" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.ViewComponent">
+    <Position X="15" Y="2" Width="1.5" />
+    <Members>
+      <Method Name="FinalizeDeserialization" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAAAAEAAAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\ViewComponent_e.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.TextArea">
+    <Position X="15" Y="5.5" Width="1.5" />
+    <Members>
+      <Method Name="FinalizeDeserialization" Hidden="true" />
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="dbguimaker.DatabaseGUI.ViewComponent" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.062" Y="3.617" />
+        <Point X="16.062" Y="5.5" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="label" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.5" Y="5.921" />
+        <Point X="16.725" Y="5.921" />
+        <Point X="16.725" Y="2.312" />
+        <Point X="18.5" Y="2.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="data" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.5" Y="6.405" />
+        <Point X="16.815" Y="6.405" />
+        <Point X="16.815" Y="2.562" />
+        <Point X="18.5" Y="2.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.141" Y="0.05" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAQBAAAAAABAAAkAAAgAAAAAAQAEAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\ViewComponents\TextArea_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="label" />
+      <Field Name="data" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.Label">
+    <Position X="15" Y="7.75" Width="1.5" />
+    <Members>
+      <Method Name="FinalizeDeserialization" Hidden="true" />
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <AssociationLine Name="text" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.5" Y="8.655" />
+        <Point X="16.901" Y="8.655" />
+        <Point X="16.901" Y="2.812" />
+        <Point X="18.5" Y="2.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.174" Y="0.006" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAQAAAAAAABAAAkAAAgAAIAAAAAEAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\ViewComponents\Label_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="text" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="dbguimaker.DatabaseGUI.CheckBox">
+    <Position X="15" Y="10" Width="1.5" />
+    <Members>
+      <Method Name="FinalizeDeserialization" Hidden="true" />
+      <Method Name="GenerateEditorRepresentation" Hidden="true" />
+      <Property Name="Inputs" Hidden="true" />
+      <Property Name="InputTexts" Hidden="true" />
+      <Method Name="SetInput" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="dbguimaker.DatabaseGUI.ViewComponent" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="15.438" Y="3.617" />
+        <Point X="15.438" Y="4.935" />
+        <Point X="14.638" Y="4.935" />
+        <Point X="14.638" Y="9.76" />
+        <Point X="15.75" Y="9.76" />
+        <Point X="15.75" Y="10" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="label" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.5" Y="10.421" />
+        <Point X="17.003" Y="10.421" />
+        <Point X="17.003" Y="3.062" />
+        <Point X="18.5" Y="3.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.12" Y="-0.013" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="data" Type="dbguimaker.DatabaseGUI.Operation" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.5" Y="10.905" />
+        <Point X="17.094" Y="10.905" />
+        <Point X="17.094" Y="3.312" />
+        <Point X="18.5" Y="3.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.133" Y="0.017" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAQBAAAAAABAAAkAAAgAAAAAAQAEAQAAA=</HashCode>
+      <FileName>DatabaseGUI\Editing\ViewComponents\CheckBox_e.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="label" />
+      <Field Name="data" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

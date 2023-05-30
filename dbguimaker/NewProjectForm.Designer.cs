@@ -89,7 +89,7 @@
             // ContinueButton
             // 
             this.ContinueButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContinueButton.Location = new System.Drawing.Point(622, 221);
+            this.ContinueButton.Location = new System.Drawing.Point(514, 146);
             this.ContinueButton.Name = "ContinueButton";
             this.ContinueButton.Size = new System.Drawing.Size(79, 39);
             this.ContinueButton.TabIndex = 5;
@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(682, 216);
             this.Controls.Add(this.viewFileDialogButton);
             this.Controls.Add(this.ContinueButton);
             this.Controls.Add(this.NameTextBox);

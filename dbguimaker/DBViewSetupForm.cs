@@ -118,6 +118,7 @@ namespace dbguimaker
                 errorProvider.SetError(databasePathTextBox, "The database is incompatible with the view. Try using a different database.");
                 return;
             }
+            currentData.FinalizeDeserialization();
             new DBViewForm(database, currentData).Show();
             this.Close();
         }

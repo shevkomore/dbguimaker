@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using dbguimaker.DatabaseGUI;
 
@@ -21,6 +22,7 @@ namespace dbguimaker
                 DatabaseTextBox.Text = dialog.FileName;
                 NameTextBox.Text = GetNewFileName(dialog.FileName);
             }
+            this.TopMost = true;
         }
         private string GetNewFileName(string database_path)
         {

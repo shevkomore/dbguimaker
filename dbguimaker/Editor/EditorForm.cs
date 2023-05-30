@@ -113,7 +113,7 @@ namespace dbguimaker
                             input.MouseClick += EditorElementInput_MouseClick;
                     TraverseTree(element, ref createdElements);
                 }
-                if (element is Operation & !(element is Input) & !panel1.Controls.Contains(c))
+                if (element is IOperation & !(element is Input) & !panel1.Controls.Contains(c))
                 {
                     panel1.Controls.Add(c);
                     c.Draggable(true);
@@ -148,7 +148,7 @@ namespace dbguimaker
                     if (c.Element is Input) return;
                     createdElements.Remove(c.Element);
                     foreach (EditorElement e in createdElements)
-                        e.DeleteInput((Operation)c.Element);
+                        e.DeleteInput((IOperation)c.Element);
                     c.Element.DeleteEditorView();
                     operationMode = InterfaceOperationMode.Default;
                     return;
@@ -262,7 +262,32 @@ namespace dbguimaker
                 }
             }
         }
+        private void addConditionToolStripButton_Click(object sender, EventArgs e)
+        {
+            DatabaseGUI.Condition c = new Condition();
 
+            panel1.Controls.Add(c.EditorView);
+            createdElements.Add(c);
+            c.EditorView.Left = panel1.Size.Width / 2;
+            c.EditorView.Top = panel1.Size.Height / 2;
+            c.EditorView.Draggable(true);
+            c.EditorView.MouseClick += EditorElement_MouseClick;
+            foreach (EditorElementInput input in c.EditorView.InputControls)
+                input.MouseClick += EditorElementInput_MouseClick;
+        }
+        private void addSumToolStripButton_Click(object sender, EventArgs e)
+        {
+            DatabaseGUI.Sum s = new Sum();
+
+            panel1.Controls.Add(s.EditorView);
+            createdElements.Add(s);
+            s.EditorView.Left = panel1.Size.Width / 2;
+            s.EditorView.Top = panel1.Size.Height / 2;
+            s.EditorView.Draggable(true);
+            s.EditorView.MouseClick += EditorElement_MouseClick;
+            foreach (EditorElementInput input in s.EditorView.InputControls)
+                input.MouseClick += EditorElementInput_MouseClick;
+        }
         private void addLabelToolStripButton_Click(object sender, EventArgs e)
         {
             DatabaseGUI.Label l = new DatabaseGUI.Label();
@@ -331,7 +356,7 @@ namespace dbguimaker
         }
         void TraverseTree(DatabaseGUI.EditorElement element, ref HashSet<EditorElement> operations)
         {
-            foreach (Operation o in element.Inputs)
+            foreach (IOperation o in element.Inputs)
             {
                 if(o == null) continue;
                 operations.Add(o);
@@ -343,6 +368,7 @@ namespace dbguimaker
         {
             panel1_Paint(sender, null);
         }
+
     }
 
 }
